@@ -1,0 +1,81 @@
+<h1>Banking Records</h1>
+
+<br>
+<span>
+<%= link_to "Back", pages_home_path %>
+</span>
+<br>
+
+<p>Information listing - Agents Table</p>
+
+
+
+<table style="text-align: left">
+	<tr>
+    <th>Account</th>
+    <th>Branch</th>
+  	</tr>
+
+	<% @agents.each do |agent| %>
+	<tr>
+		<td>
+			<%= agent.account %>
+		</td>
+		<td>
+			<%= agent.branch %>
+		</td>
+	</tr>
+    <% end %>
+	
+</table>
+
+
+<br>
+
+
+<p>Information listing - Transactions Table</p>
+
+<table style="text-align: left">
+	<tr>
+    <th>Agent</th>
+    <th>Customer</th>
+    <th>Amount</th>
+    <th>Status</th>
+  	</tr>
+
+	<% @transactions.each do |transaction| %>
+	<tr>
+		<td>
+			<%= transaction.agent %>
+		</td>
+		<td>
+			<%= transaction.customer %>
+		</td>
+		<td>
+			<%= transaction.amount %>
+		</td>
+		<td>
+			<%= transaction.status %>
+		</td>
+	</tr>
+    <% end %>
+	
+</table>
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>

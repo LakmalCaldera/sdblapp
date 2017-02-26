@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agent: MyText
+  customer: MyText
+  amount: 1
+  status: MyText
+
+two:
+  agent: MyText
+  customer: MyText
+  amount: 1
+  status: MyText
