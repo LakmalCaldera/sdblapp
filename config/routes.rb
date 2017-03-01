@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :transactions
   
   root to: 'pages#home'
+
+
 end

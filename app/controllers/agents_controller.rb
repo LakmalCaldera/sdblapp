@@ -1,6 +1,8 @@
 class AgentsController < ApplicationController
 	def index
     	@agents = Agent.all
+			@agents_count = Agent.all.size
+
 			@agent_item = Agent.new
   	end
 

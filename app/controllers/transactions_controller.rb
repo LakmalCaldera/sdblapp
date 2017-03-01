@@ -2,6 +2,9 @@ class TransactionsController < ApplicationController
   def index
     @transactions = Transaction.all
     @transaction_item = Transaction.new
+
+    @transactions_count = Transaction.all.size
+    @transactions_amount = Transaction.sum(:amount)
   end
 
   def new
@@ -13,7 +16,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction_item.save
-        format.html { redirect_to transactions_path, notice: 'Your portfolio item is now live.' }
+        format.html { redirect_to transactions_path, notice: 'Your item is now live.' }
       else
         format.html { render :new }
       end
@@ -29,7 +32,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction_item.update(params.require(:transaction).permit(:agent, :customer, :amount, :status))
-        format.html { redirect_to transactions_path, notice: 'Your portfolio item is now live.' }
+        format.html { redirect_to transactions_path, notice: 'Your item is now live.' }
       else
         format.html { render :edit }
       end
@@ -49,7 +52,7 @@ class TransactionsController < ApplicationController
 
     # Redirect
     respond_to do |format|
-      format.html { redirect_to transactions_path }
+      format.html { redirect_to transactions_path, notice: 'Record was removed.' }
     end
   end
 end

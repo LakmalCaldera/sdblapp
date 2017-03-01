@@ -2,7 +2,7 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">BankName</a>
+  <a class="home-btn" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -17,24 +17,24 @@
 </nav>
 
 <section class="inner-padding">
-  <input type="text" id="app-search" class="light-table-filter" placeholder="Search.." data-table="order-table">
-  <table id="app-table" class="order-table table">
+  <input type="text" class="app-search" id="light-table-filter-trans" placeholder="Search.." data-table="order-table">
+  <table class="app-table order-table table fixed_headers scroll">
     <thead>
     <tr class="header">
-      <th>#</th>
-      <th>Agent</th>
-      <th>Customer</th>
-      <th>Amount</th>
-      <th>Status</th>
-      <th>Created</th>
-      <th>Updated</th>
-      <th>Actions</th>
+      <td class="bold">#</td>
+      <td class="bold">Agent</td>
+      <td class="bold">Customer</td>
+      <td class="bold">Amount</td>
+      <td class="bold">Status</td>
+      <td class="bold">Created</td>
+      <td class="bold">Updated</td>
+      <td class="bold">Actions</td>
     </tr>
     </thead>
     <tbody>
     <% @transactions.each_with_index do |transaction, index| %>
-        <tr>
-          <th scope="row"><%= index %></th>
+        <tr data-amount="<%= transaction.amount %>">
+          <td scope="row" class="bold"><%= index %></td>
           <td><%= transaction.agent %></td>
           <td><%= transaction.customer %></td>
           <td><%= transaction.amount %></td>
@@ -42,70 +42,75 @@
           <td><%= transaction.created_at %></td>
           <td><%= transaction.updated_at %></td>
           <td>
-            <%= link_to '<i class="fa fa-times red-text"></i>'.html_safe, transaction, method: :delete, data: {confirm: 'Are you sure?'} %>
+            <%= link_to '<div class="delete-btn"><i class="fa fa-times red-text"></i>&nbsp;Delete</div>'.html_safe, transaction, method: :delete, data: {confirm: 'Are you sure?'} %>
           </td>
+          <td></td>
         </tr>
     <% end %>
     </tbody>
   </table>
+  <table class="app-table">
+    <thead>
+    <tr class="header">
+      <td class="bold">Summary</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="bold">Currently listing count</td>
+      <td>:</td>
+      <td id="listingCount"><%= @transactions_count %></td>
+    </tr>
+    <tr>
+      <td class="bold">Total amount in current listing</td>
+      <td>:</td>
+      <td id="listingAmountCount"><%= @transactions_amount %></td>
+    </tr>
+    </tbody>
+  </table>
 </section>
 
-<style type="text/css">
-  .form-input{
-    display: block;
-    width: 100%;
+<style>
+  .scroll td:nth-child(1) {
+    flex: 0.5;
   }
 
-  .btn.btn-primary.app-btn{
-    width: 48px;
-    height: 48px;
-    vertical-align: top;
-  }
-  .inner-padding {
-    padding: 1em;
+  .scroll td:nth-child(2) {
+    flex: 2;
   }
 
-  .tral-text {
-    color: #009688 !important;
+  .scroll td:nth-child(3) {
+    flex: 2;
   }
 
-  .red-text {
-    color: #F44336 !important;
+  .scroll td:nth-child(4) {
+    flex: 1;
   }
 
-  #app-search {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAACYktHRAD/h4/MvwAAAAl2cEFnAAABKgAAASkAUBZlMQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMy0wNC0xMFQwNjo1OTowNy0wNzowMI5BiVEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTMtMDQtMTBUMDY6NTk6MDctMDc6MDD/HDHtAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAABF0RVh0VGl0bGUAc2VhcmNoLWljb27Cg+x9AAACKklEQVQ4T6WUSavqQBCFK+2sII7gShFXLpUsBBHFf+1KcAQFwaWiolsnnBDn++4p0iHRqPDuByFJd/Wp6qrqVn5+IQP3+52m0ymtVis6Ho885na7KRgMUiKR4O9vmEQHgwGNx2NyOp0khCBFUXgcJo/Hg67XK8ViMcpkMjz+Dl200+nQZrMhh8PBE4gYQgDidrudvzEOm2KxyP9WsCginM1mHKEUS6VSFA6HOWI4G41GPAfx2+1GgUCAVFXVZMwovwY/lUqFPB4PiyFn+XxemzbT6/VovV6z8Ol0olwux+LPCBQFEQKIvhME2WyWbWGHFCD/VghUGVvE1rDlb6TTabbFmuVyqY2aEWgbFALeI5GINvyeUCjEtlgju+IZoRWfkS30CURoxFJUNjMEt9stf38CNjJKIFvNiMBJgTebzcZt843hcMhCELWqPBDxeJwulwtvC/3X7/e1qVfgFD0rC5tMJrUZM8Lr9VI0GmVBRDCfz6nZbHI/Sna7HXW7XZpMJtxSiBIP1lmhH9NqtaqfGKQDTmQREBnSgwfmMqfYYblc1o+2xHShtNttLgSiee4EmMEp3hDBPJzikimVSuRyuTTLJ1GwWCz4pCB3UhiL/X4/Hw50C5zjLSM+n898weCogxdRIzAGxigAdtNqtV6EC4UC+Xy+z6Kf2O/31Gg0TMK4ZBDxf4uCw+FA9XpdF0aaUOg/iQLcHbVaTb/p0Cl/FgXIJ/oYnaCqKv0DC6dltH6Ks84AAAAASUVORK5CYII=');
-    background-position: 10px 12px; /* Position the search icon */
-    background-repeat: no-repeat; /* Do not repeat the icon image */
-    width: calc(100%); /* Full-width */
-    font-size: 16px; /* Increase font-size */
-    padding: 12px 20px 12px 40px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a grey border */
-    margin-bottom: 12px; /* Add some space below the input */
-    box-sizing: border-box;
+  .scroll td:nth-child(5) {
+    flex: 1;
   }
 
-  #app-table {
-    border-collapse: collapse; /* Collapse borders */
-    width: 100%; /* Full-width */
-    border: 1px solid #ddd; /* Add a grey border */
-    font-size: 0.85em;
+  .scroll td:nth-child(6) {
+    flex: 3;
   }
 
-  #app-table th, #app-table td {
-    text-align: left; /* Left-align text */
-    padding: 12px; /* Add padding */
+  .scroll td:nth-child(7) {
+    flex: 3;
   }
 
-  #app-table tr {
-    /* Add a bottom border to all table rows */
-    border-bottom: 1px solid #ddd;
+  .scroll td:nth-child(8) {
+    flex: 2;
   }
 
-  #app-table tr.header, #app-table tr:hover {
-    /* Add a grey background color to the table header and on hover */
-    background-color: #f1f1f1;
+  .scroll td:nth-child(9) {
+    flex: 0.2;
+    padding: 0;
   }
+
+    .app-search{
+      width: 100% !important;
+    }
 </style>
 
 
@@ -116,6 +121,9 @@
     var LightTableFilter = (function (Arr) {
 
       var _input;
+      var totalCount;
+      var listingCount;
+      var listingAmountCount;
 
       function _onInputEvent(e) {
         _input = e.target;
@@ -125,34 +133,45 @@
             Arr.forEach.call(tbody.rows, _filter);
           });
         });
+
+        listingCount = 0;
+        listingAmountCount = 0;
+        Arr.forEach.call(tables, function (table) {
+          Arr.forEach.call(table.tBodies, function (tbody) {
+            Arr.forEach.call(tbody.rows, _count);
+          });
+        });
+        document.getElementById("listingCount").innerText = listingCount;
+        document.getElementById("listingAmountCount").innerText = listingAmountCount;
+      }
+
+      function _count(row){
+        if(row.style.display == ''){
+          listingCount++;
+          listingAmountCount += parseFloat(row.getAttribute('data-amount'));
+        }
       }
 
       function _filter(row) {
         var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        row.style.display = text.indexOf(val) === -1 ? 'none'  : '';
       }
 
       return {
         init: function () {
-          var inputs = document.getElementsByClassName('light-table-filter');
-          Arr.forEach.call(inputs, function (input) {
-            input.oninput = _onInputEvent;
-          });
+          totalCount = parseInt(document.getElementById("listingCount").innerText);
+          var input = document.getElementById('light-table-filter-trans');
+          if(input)
+          input.oninput = _onInputEvent;
         }
       };
     })(Array.prototype);
 
-    document.addEventListener('readystatechange', function () {
-      if (document.readyState === 'complete') {
-        LightTableFilter.init();
-      }
-    });
+
+    LightTableFilter.init();
 
   })(document);
 </script>
-
-
-
 
 
 
