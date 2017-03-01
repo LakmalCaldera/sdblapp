@@ -6,9 +6,4 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get records" do
-    get pages_records_url
-    assert_response :success
-  end
-
 end

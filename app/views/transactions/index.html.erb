@@ -1,0 +1,205 @@
+<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">BankName</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "Agents", agents_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Transactions <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="inner-padding">
+  <input type="text" id="app-search" class="light-table-filter" placeholder="Search.." data-table="order-table">
+  <table id="app-table" class="order-table table">
+    <thead>
+    <tr class="header">
+      <th>#</th>
+      <th>Agent</th>
+      <th>Customer</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @transactions.each_with_index do |transaction, index| %>
+        <tr>
+          <th scope="row"><%= index %></th>
+          <td><%= transaction.agent %></td>
+          <td><%= transaction.customer %></td>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.status %></td>
+          <td><%= transaction.created_at %></td>
+          <td><%= transaction.updated_at %></td>
+          <td>
+            <%= link_to '<i class="fa fa-times red-text"></i>'.html_safe, transaction, method: :delete, data: {confirm: 'Are you sure?'} %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>
+
+<style type="text/css">
+  .form-input{
+    display: block;
+    width: 100%;
+  }
+
+  .btn.btn-primary.app-btn{
+    width: 48px;
+    height: 48px;
+    vertical-align: top;
+  }
+  .inner-padding {
+    padding: 1em;
+  }
+
+  .tral-text {
+    color: #009688 !important;
+  }
+
+  .red-text {
+    color: #F44336 !important;
+  }
+
+  #app-search {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAACYktHRAD/h4/MvwAAAAl2cEFnAAABKgAAASkAUBZlMQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxMy0wNC0xMFQwNjo1OTowNy0wNzowMI5BiVEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTMtMDQtMTBUMDY6NTk6MDctMDc6MDD/HDHtAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAABF0RVh0VGl0bGUAc2VhcmNoLWljb27Cg+x9AAACKklEQVQ4T6WUSavqQBCFK+2sII7gShFXLpUsBBHFf+1KcAQFwaWiolsnnBDn++4p0iHRqPDuByFJd/Wp6qrqVn5+IQP3+52m0ymtVis6Ho885na7KRgMUiKR4O9vmEQHgwGNx2NyOp0khCBFUXgcJo/Hg67XK8ViMcpkMjz+Dl200+nQZrMhh8PBE4gYQgDidrudvzEOm2KxyP9WsCginM1mHKEUS6VSFA6HOWI4G41GPAfx2+1GgUCAVFXVZMwovwY/lUqFPB4PiyFn+XxemzbT6/VovV6z8Ol0olwux+LPCBQFEQKIvhME2WyWbWGHFCD/VghUGVvE1rDlb6TTabbFmuVyqY2aEWgbFALeI5GINvyeUCjEtlgju+IZoRWfkS30CURoxFJUNjMEt9stf38CNjJKIFvNiMBJgTebzcZt843hcMhCELWqPBDxeJwulwtvC/3X7/e1qVfgFD0rC5tMJrUZM8Lr9VI0GmVBRDCfz6nZbHI/Sna7HXW7XZpMJtxSiBIP1lmhH9NqtaqfGKQDTmQREBnSgwfmMqfYYblc1o+2xHShtNttLgSiee4EmMEp3hDBPJzikimVSuRyuTTLJ1GwWCz4pCB3UhiL/X4/Hw50C5zjLSM+n898weCogxdRIzAGxigAdtNqtV6EC4UC+Xy+z6Kf2O/31Gg0TMK4ZBDxf4uCw+FA9XpdF0aaUOg/iQLcHbVaTb/p0Cl/FgXIJ/oYnaCqKv0DC6dltH6Ks84AAAAASUVORK5CYII=');
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: calc(100%); /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+    box-sizing: border-box;
+  }
+
+  #app-table {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 0.85em;
+  }
+
+  #app-table th, #app-table td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+  }
+
+  #app-table tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd;
+  }
+
+  #app-table tr.header, #app-table tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+  }
+</style>
+
+
+<script>
+  (function (document) {
+    'use strict';
+
+    var LightTableFilter = (function (Arr) {
+
+      var _input;
+
+      function _onInputEvent(e) {
+        _input = e.target;
+        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+        Arr.forEach.call(tables, function (table) {
+          Arr.forEach.call(table.tBodies, function (tbody) {
+            Arr.forEach.call(tbody.rows, _filter);
+          });
+        });
+      }
+
+      function _filter(row) {
+        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+      }
+
+      return {
+        init: function () {
+          var inputs = document.getElementsByClassName('light-table-filter');
+          Arr.forEach.call(inputs, function (input) {
+            input.oninput = _onInputEvent;
+          });
+        }
+      };
+    })(Array.prototype);
+
+    document.addEventListener('readystatechange', function () {
+      if (document.readyState === 'complete') {
+        LightTableFilter.init();
+      }
+    });
+
+  })(document);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
