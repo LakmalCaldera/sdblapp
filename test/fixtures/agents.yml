@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  account: MyText
-  branch: MyText
+  AGENT_ID: 1
+  AGENT_ACCOUNT: MyText
+  AGENT_BRANCH: MyText
 
 two:
-  account: MyText
-  branch: MyText
+  AGENT_ID: 1
+  AGENT_ACCOUNT: MyText
+  AGENT_BRANCH: MyText

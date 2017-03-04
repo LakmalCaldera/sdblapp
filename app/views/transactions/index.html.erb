@@ -12,6 +12,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Transactions <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item">
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: 'nav-link' %>
+      </li>
     </ul>
   </div>
 </nav>
@@ -21,9 +24,9 @@
   <table class="app-table order-table table fixed_headers scroll">
     <thead>
     <tr class="header">
-      <td class="bold">#</td>
       <td class="bold">Agent</td>
       <td class="bold">Customer</td>
+      <td class="bold">Phone No</td>
       <td class="bold">Amount</td>
       <td class="bold">Status</td>
       <td class="bold">Created</td>
@@ -33,18 +36,17 @@
     </thead>
     <tbody>
     <% @transactions.each_with_index do |transaction, index| %>
-        <tr data-amount="<%= transaction.amount %>">
-          <td scope="row" class="bold"><%= index %></td>
-          <td><%= transaction.agent %></td>
-          <td><%= transaction.customer %></td>
-          <td><%= transaction.amount %></td>
-          <td><%= transaction.status %></td>
+        <tr data-amount="<%= transaction.TRANS_AMOUNT %>">
+          <td><%= transaction.TRANS_AGENT %></td>
+          <td><%= transaction.TRANS_CUSTOMER %></td>
+          <td><%= transaction.TRANS_MOBILE_NO %></td>
+          <td><%= transaction.TRANS_AMOUNT %></td>
+          <td><%= transaction.TRANS_STATUS %></td>
           <td><%= transaction.created_at %></td>
           <td><%= transaction.updated_at %></td>
           <td>
             <%= link_to '<div class="delete-btn"><i class="fa fa-times red-text"></i>&nbsp;Delete</div>'.html_safe, transaction, method: :delete, data: {confirm: 'Are you sure?'} %>
           </td>
-          <td></td>
         </tr>
     <% end %>
     </tbody>
@@ -72,7 +74,7 @@
 
 <style>
   .scroll td:nth-child(1) {
-    flex: 0.5;
+    flex: 3;
   }
 
   .scroll td:nth-child(2) {
@@ -108,9 +110,9 @@
     padding: 0;
   }
 
-    .app-search{
-      width: 100% !important;
-    }
+  .app-search{
+    width: 100% !important;
+  }
 </style>
 
 
@@ -162,7 +164,7 @@
           totalCount = parseInt(document.getElementById("listingCount").innerText);
           var input = document.getElementById('light-table-filter-trans');
           if(input)
-          input.oninput = _onInputEvent;
+            input.oninput = _onInputEvent;
         }
       };
     })(Array.prototype);

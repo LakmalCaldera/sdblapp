@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  agent: MyText
-  customer: MyText
-  amount: 1
-  status: MyText
+  TRANS_ID: 1
+  TRANS_UID: MyText
+  TRANS_CUSTOMER: MyText
+  TRANS_AMOUNT: 1
+  TRANS_STATUS: MyText
+  TRANS_AGENT: MyText
+  TRANS_MOBILE_NO: MyText
 
 two:
-  agent: MyText
-  customer: MyText
-  amount: 1
-  status: MyText
+  TRANS_ID: 1
+  TRANS_UID: MyText
+  TRANS_CUSTOMER: MyText
+  TRANS_AMOUNT: 1
+  TRANS_STATUS: MyText
+  TRANS_AGENT: MyText
+  TRANS_MOBILE_NO: MyText

@@ -12,6 +12,9 @@
       <li class="nav-item">
         <%= link_to "Transactions", transactions_path, class: 'nav-link' %>
       </li>
+      <li class="nav-item">
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: 'nav-link' %>
+      </li>
     </ul>
   </div>
 </nav>
@@ -23,7 +26,6 @@
   <table class="app-table order-table table fixed_headers scroll">
     <thead>
     <tr class="header">
-      <td class="bold">#</td>
       <td class="bold">Account</td>
       <td class="bold">Branch</td>
       <td class="bold">Created</td>
@@ -34,15 +36,13 @@
     <tbody>
     <% @agents.each_with_index do |agent, index| %>
         <tr>
-          <td scope="row" class="bold"><%= index %></td>
-          <td><%= agent.account %></td>
-          <td><%= agent.branch %></td>
+          <td><%= agent.AGENT_ACCOUNT %></td>
+          <td><%= agent.AGENT_BRANCH %></td>
           <td><%= agent.created_at %></td>
           <td><%= agent.updated_at %></td>
           <td>
             <%= link_to '<div class="delete-btn"><i class="fa fa-times red-text"></i>&nbsp;Delete</div>'.html_safe, agent, method: :delete, data: {confirm: 'Are you sure?'} %>
           </td>
-          <td></td>
         </tr>
     <% end %>
     </tbody>
@@ -78,12 +78,12 @@
       <div class="modal-body">
         <%= form_for(@agent_item) do |f| %>
             <div class="field">
-              <%= f.label :account %>
-              <%= f.text_field :account, class: 'form-input' %>
+              <%= f.label :AGENT_ACCOUNT %>
+              <%= f.text_field :AGENT_ACCOUNT, class: 'form-input' %>
             </div>
             <div class="field">
-              <%= f.label :branch %>
-              <%= f.text_field :branch, class: 'form-input' %>
+              <%= f.label :AGENT_BRANCH %>
+              <%= f.text_field :AGENT_BRANCH, class: 'form-input' %>
             </div>
 
             <div class="modal-footer">
@@ -109,12 +109,12 @@
       <div class="modal-body">
         <%= form_for(@agent_item) do |f| %>
             <div class="field">
-              <%= f.label :account %>
-              <%= f.text_field :account, class: 'form-input' %>
+              <%= f.label :AGENT_ACCOUNT %>
+              <%= f.text_field :AGENT_ACCOUNT, class: 'form-input' %>
             </div>
             <div class="field">
-              <%= f.label :branch %>
-              <%= f.text_field :branch, class: 'form-input' %>
+              <%= f.label :AGENT_BRANCH %>
+              <%= f.text_field :AGENT_BRANCH, class: 'form-input' %>
             </div>
 
             <div class="modal-footer">
@@ -202,7 +202,7 @@
           totalCount = parseInt(document.getElementById("listingCount").innerText);
           var input = document.getElementById('light-table-filter-agent');
           if(input)
-          input.oninput = _onInputEvent;
+            input.oninput = _onInputEvent;
         }
       };
     })(Array.prototype);

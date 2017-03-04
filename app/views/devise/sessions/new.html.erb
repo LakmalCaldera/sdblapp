@@ -1,0 +1,99 @@
+<div class="home-container parent-center">
+
+
+  <div class="child-center">
+
+    <div class="logo"></div>
+
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+
+    <div class="center">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            <%= f.label :email %><br/>
+            <%= f.text_field :email, autofocus: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %><br/>
+            <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+          <% end -%>
+
+          <div class="actions">
+            <%= f.submit "Log in" %>
+          </div>
+      <% end %>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+<style>
+  .title h1 {
+    margin-bottom: 2em;
+    font-weight: 200 !important;
+  }
+
+  .home-container {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+  }
+
+  .parent-center:before {
+    content: '\200B';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .child-center {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .btn-container a {
+    padding: 1em;
+    font-size: 1.5em;
+    font-weight: 300;
+  }
+
+  .field {
+    text-align: left;
+  }
+
+  .field input[type="text"], .field input[type="password"], .actions input[type="submit"]{
+    width: 400px;
+    padding: 0.8em;
+  }
+
+    .center{
+      text-align: center;
+    }
+
+    .logo{
+      background-image: url(/assets/company-logo.png);
+      width: 264px;
+      background-repeat: no-repeat;
+      height: 205px;
+      margin: 0 auto;
+      background-size: contain;
+    }
+
+    p.notice, p.alert{
+      max-width: 400px;
+    }
+</style>
