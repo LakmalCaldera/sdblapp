@@ -11,7 +11,7 @@ class AgentsController < ApplicationController
   end
 
   def create
-    @agent_item = Agent.new(params.require(:agent).permit(:AGENT_ACCOUNT, :AGENT_BRANCH))
+    @agent_item = Agent.new(params.require(:agent).permit(:account, :branch))
 
     respond_to do |format|
       if @agent_item.save
@@ -30,7 +30,7 @@ class AgentsController < ApplicationController
     @agent_item = Agent.find(params[:id])
 
     respond_to do |format|
-      if @agent_item.update(params.require(:agent).permit(:AGENT_ACCOUNT, :AGENT_BRANCH))
+      if @agent_item.update(params.require(:agent).permit(:account, :branch))
         format.html { redirect_to agents_path, notice: 'The record successfully updated.' }
       else
         format.html { render :edit }

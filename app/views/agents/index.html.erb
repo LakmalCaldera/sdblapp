@@ -1,8 +1,7 @@
-<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md navbar-light bg-faded navbar-default">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="home-btn" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -28,18 +27,14 @@
     <tr class="header">
       <td class="bold">Account</td>
       <td class="bold">Branch</td>
-      <td class="bold">Created</td>
-      <td class="bold">Updated</td>
       <td class="bold">Actions</td>
     </tr>
     </thead>
     <tbody>
-    <% @agents.each_with_index do |agent, index| %>
+    <% @agents.each do |agent| %>
         <tr>
-          <td><%= agent.AGENT_ACCOUNT %></td>
-          <td><%= agent.AGENT_BRANCH %></td>
-          <td><%= agent.created_at %></td>
-          <td><%= agent.updated_at %></td>
+          <td><%= agent.account %></td>
+          <td><%= agent.branch %></td>
           <td>
             <%= link_to '<div class="delete-btn"><i class="fa fa-times red-text"></i>&nbsp;Delete</div>'.html_safe, agent, method: :delete, data: {confirm: 'Are you sure?'} %>
           </td>
@@ -78,12 +73,12 @@
       <div class="modal-body">
         <%= form_for(@agent_item) do |f| %>
             <div class="field">
-              <%= f.label :AGENT_ACCOUNT %>
-              <%= f.text_field :AGENT_ACCOUNT, class: 'form-input' %>
+              <%= f.label :account %>
+              <%= f.text_field :account, class: 'form-input' %>
             </div>
             <div class="field">
-              <%= f.label :AGENT_BRANCH %>
-              <%= f.text_field :AGENT_BRANCH, class: 'form-input' %>
+              <%= f.label :branch %>
+              <%= f.text_field :branch, class: 'form-input' %>
             </div>
 
             <div class="modal-footer">
@@ -109,12 +104,12 @@
       <div class="modal-body">
         <%= form_for(@agent_item) do |f| %>
             <div class="field">
-              <%= f.label :AGENT_ACCOUNT %>
-              <%= f.text_field :AGENT_ACCOUNT, class: 'form-input' %>
+              <%= f.label :account %>
+              <%= f.text_field :account, class: 'form-input' %>
             </div>
             <div class="field">
-              <%= f.label :AGENT_BRANCH %>
-              <%= f.text_field :AGENT_BRANCH, class: 'form-input' %>
+              <%= f.label :branch %>
+              <%= f.text_field :branch, class: 'form-input' %>
             </div>
 
             <div class="modal-footer">

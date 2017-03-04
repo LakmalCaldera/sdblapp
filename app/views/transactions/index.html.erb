@@ -2,7 +2,6 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="home-btn" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -30,20 +29,18 @@
       <td class="bold">Amount</td>
       <td class="bold">Status</td>
       <td class="bold">Created</td>
-      <td class="bold">Updated</td>
       <td class="bold">Actions</td>
     </tr>
     </thead>
     <tbody>
     <% @transactions.each_with_index do |transaction, index| %>
-        <tr data-amount="<%= transaction.TRANS_AMOUNT %>">
-          <td><%= transaction.TRANS_AGENT %></td>
-          <td><%= transaction.TRANS_CUSTOMER %></td>
-          <td><%= transaction.TRANS_MOBILE_NO %></td>
-          <td><%= transaction.TRANS_AMOUNT %></td>
-          <td><%= transaction.TRANS_STATUS %></td>
-          <td><%= transaction.created_at %></td>
-          <td><%= transaction.updated_at %></td>
+        <tr data-amount="<%= transaction.amount %>">
+          <td><%= transaction.agent %></td>
+          <td><%= transaction.customer %></td>
+          <td><%= transaction.mobile %></td>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.status %></td>
+          <td><%= transaction.timestamp %></td>
           <td>
             <%= link_to '<div class="delete-btn"><i class="fa fa-times red-text"></i>&nbsp;Delete</div>'.html_safe, transaction, method: :delete, data: {confirm: 'Are you sure?'} %>
           </td>

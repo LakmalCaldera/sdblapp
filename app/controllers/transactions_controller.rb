@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
     @transaction_item = Transaction.new
 
     @transactions_count = Transaction.all.size
-    @transactions_amount = Transaction.sum(:TRANS_AMOUNT)
+    @transactions_amount = Transaction.sum(:amount)
   end
 
   def new
