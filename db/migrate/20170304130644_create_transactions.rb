@@ -4,12 +4,12 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
       t.text :uid, :options => 'PRIMARY KEY'
       t.text :customer
       t.integer :amount
-      t.timestamp :timestamp
+      t.decimal :timestamp
       t.text :status
       t.text :mobile
       t.text :agent
     end
 
     add_index :transactions, :uid, unique: true, :length => { :uid => 64 }
-    end
   end
+end

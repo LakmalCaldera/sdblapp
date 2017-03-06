@@ -1,58 +1,30 @@
-class AgentsDatatable
-  delegate :params, :h, :link_to, :number_to_currency, to: :@view
+class AgentsDatatable < AjaxDatatablesRails::Base
 
-  def initialize(view)
-    @view = view
-  end
-
-  def as_json(options = {})
-    {
-        sEcho: params[:sEcho].to_i,
-        iTotalRecords: Agent.count,
-        iTotalDisplayRecords: 5,
-        aaData: data
+  def view_columns
+    # Declare strings in this format: ModelName.column_name
+    # or in aliased_join_table.column_name format
+    @view_columns ||={
+        account: {source: "Agent.account", cond: filter_custom_column_condition},
+        branch: {source: "Agent.branch", cond: filter_custom_column_condition}
     }
   end
 
-
   def data
-    agents.map.with_index do |agent, index|
-      [
-          index,
-          agent.account,
-          agent.branch,
-          agent.created_at.strftime("%B %e, %Y"),
-          agent.updated_at.strftime("%B %e, %Y")
-      ]
+    records.map do |record|
+      {
+          # example:
+          account: record.account,
+          branch: record.branch
+      }
     end
   end
 
-  def agents
-    @agents ||= fetch_agents
+  def get_raw_records
+    # insert query here
+    Agent.all
   end
 
-  def fetch_agents
-    agents = Agent.order("#{sort_column} #{sort_direction}")
-    if params[:sSearch].present?
-      agents = agents.where("account like :search or branch like :search", search: "%#{params[:sSearch]}%")
-    end
-    agents
-  end
-
-  def page
-    params[:iDisplayStart].to_i/per_page + 1
-  end
-
-  def per_page
-    params[:iDisplayLength].to_i > 0 ? params[:iDisplayLength].to_i : 10
-  end
-
-  def sort_column
-    columns = %w[account branch created_at updated_at]
-    columns[params[:iSortCol_0].to_i]
-  end
-
-  def sort_direction
-    params[:sSortDir_0] == "desc" ? "desc" : "asc"
+  def filter_custom_column_condition
+    ->(column) { ::Arel::Nodes::SqlLiteral.new(column.field.to_s).matches("%#{ column.search.value }%") }
   end
 end

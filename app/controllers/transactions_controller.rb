@@ -1,10 +1,17 @@
 class TransactionsController < ApplicationController
+  respond_to :html, :json
   def index
-    @transactions = Transaction.all
     @transaction_item = Transaction.new
 
     @transactions_count = Transaction.all.size
     @transactions_amount = Transaction.sum(:amount)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: TransactionsDatatable.new(view_context)
+      end
+    end
   end
 
   def new

@@ -1,9 +1,15 @@
 class AgentsController < ApplicationController
+  respond_to :html, :json
   def index
-    @agents = Agent.all
+    @agent_item = Agent.new
     @agents_count = Agent.all.size
 
-    @agent_item = Agent.new
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: AgentsDatatable.new(view_context)
+      end
+    end
   end
 
   def new

@@ -1,19 +1,21 @@
-10.times do |index|
+500.times do |index|
   Agent.create!(
-    branch: "Brand xxx",
-    account: "Account #{index}")
+    branch: "Brand 123#{index*20}",
+    account: "Account 0000#{index*45}")
   end
 
 
-15.times do |index|
+500.times do |index|
   Transaction.create!(
-      uid: "#{index}",
-      agent: "agent name #{index}",
-      customer: "customer name #{index}",
+      uid: "#{index*3}",
+      agent: "agent name #{index*12}",
+      customer: "customer name #{index*3}",
       amount: 1000,
+      mobile: "no. 12343#{index*25}",
+      timestamp: "#{1488806718 + index*100}",
       status: "status #{index}"
   )
-end
+  end
 
 puts "5 Transations created"
 
