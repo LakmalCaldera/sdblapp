@@ -64,6 +64,71 @@
 </div>
 
 
+
+
+
+
+
+
+
+  <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <%= form_for(@agent_item) do |f| %>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            Create a new Agent
+          </h4>
+        </div>
+
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+
+          <div class="form-horizontal" role="form">
+
+
+                <div class="form-group">
+                  <%= f.label :account, class:  'col-sm-2 control-label' %>
+                    <div class="col-sm-10">
+                      <%= f.text_field :account, class: 'form-control' %>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <%= f.label :branch, class:  'col-sm-2 control-label' %>
+                  <div class="col-sm-10">
+                    <%= f.text_field :branch, class: 'form-control' %>
+                  </div>
+                </div>
+
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit :class => "btn btn-primary" %>
+
+        </div>
+
+
+      </div>
+        <% end %>
+    </div>
+  </div>
+
+
+
+
   <script>
     $(document).ready(function () {
       $('.filters input, .filters select', this).on('keyup', (function (_this) {

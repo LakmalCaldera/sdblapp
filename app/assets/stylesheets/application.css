@@ -138,3 +138,15 @@
 .date-picker-wrapper{
     z-index: 9999 !important;
 }
+
+.agent-add-action button{
+    margin: 0.5em 0;
+}
+
+.form-group{
+    height: 2em !important;
+}
+
+.control-label{
+    line-height: 2em !important;
+}

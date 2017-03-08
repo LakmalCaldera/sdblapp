@@ -131,8 +131,12 @@ App.Agents = (function (superClass) {
                 initComplete: function () {
                     var api = this.api();
                     $.agentsDataTableApi = api;
-                }
+                },
+                dom: '<"agent-add-action">frtip'
             });
+
+
+            $("div.agent-add-action").html('<button data-toggle="modal" data-target="#createModal">Add Agent</button>');
         });
     };
 
