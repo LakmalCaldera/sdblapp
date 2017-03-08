@@ -102,6 +102,7 @@
 
 .data-loader-container {
     background: white !important;
+    margin: 0 5px 0 2px !important;
 }
 
 .loading-text{
@@ -132,4 +133,8 @@
 
 .dataTables_scrollBody{
     background: white !important;
+}
+
+.date-picker-wrapper{
+    z-index: 9999 !important;
 }

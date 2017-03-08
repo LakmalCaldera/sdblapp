@@ -64,7 +64,17 @@
 </div>
 
 
-
+  <script>
+    $(document).ready(function () {
+      $('.filters input, .filters select', this).on('keyup', (function (_this) {
+        return function (e) {
+          var th;
+          th = $(e.target).closest("th");
+          return $.agentsDataTableApi.column(th.index()).search($(e.target).val()).draw();
+        };
+      })(this));
+    });
+  </script>
 
 
 

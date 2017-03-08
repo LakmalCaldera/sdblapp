@@ -1,4 +1,3 @@
-
 <div class="nav-container">
   <ul class="nav nav-tabs">
     <li class="presentation">
@@ -15,113 +14,147 @@
 
 
 
-<p>Enter Date: <input class ="datepicker"></p>
+<!--<p>Enter Date: <input class ="datepicker"></p>-->
 
+
+
+
+<div>
   <div>
-    <div>
-      <div class="panel">
+    <div class="panel">
 
-        <div class="panel-body">
-          <div class="table-responsive">
-            <table id="transactionTable"  data-source="<%= transactions_url(format: "json") %>" class="table table-striped table-bordered" cellspacing="0" width="100%">
-              <thead>
-              <tr class="filters">
-                <th>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table id="transactionTable" data-source="<%= transactions_url(format: "json") %>" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr class="filters">
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" placeholder="UID" class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Agent" class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-                <th>
+              </th>
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" placeholder="Customer" class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Customer" class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-                <th>
+              </th>
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" id="dateFilter" placeholder="Date" class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" id="date-range" placeholder="Date Range" class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-                <th>
+              </th>
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" placeholder="Status" class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Status" class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-                <th>
+              </th>
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" placeholder="Mobile No." class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Mobile No." class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-                <th>
+              </th>
+              <th>
 
-                  <div class="form-group">
-                    <div class="input-group input-group-md">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
-                      <div class="icon-addon addon-md">
-                        <input type="text" placeholder="Amount" class="form-control">
-                      </div>
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Amount" class="form-control">
                     </div>
                   </div>
+                </div>
 
-                </th>
-              </tr>
-              <tr>
-                <th>Tansaction Uid</th>
-                <th>Customer</th>
-                <th>Transaction Date</th>
-                <th>Status</th>
-                <th>Mobile No</th>
-                <th>Transaction Amount</th>
-              </tr>
-              </thead>
-              <tfoot>
-              <tr>
-                <th colspan="5" style="text-align:right">Total:</th>
-                <th></th>
-              </tr>
-              </tfoot>
-              <tbody></tbody>
-            </table>
-          </div>
+              </th>
+            </tr>
+            <tr>
+              <th>Agent</th>
+              <th>Customer</th>
+              <th>Transaction Date</th>
+              <th>Status</th>
+              <th>Mobile No</th>
+              <th>Transaction Amount</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+              <th colspan="5" style="text-align:right">Total:</th>
+              <th></th>
+            </tr>
+            </tfoot>
+            <tbody></tbody>
+          </table>
         </div>
-
       </div>
+
     </div>
   </div>
+</div>
+
+
+
+
+<script>
+  $(document).ready(function () {
+    $('.filters input, .filters select', this).on('keyup', (function (_this) {
+      return function (e) {
+        var th;
+        th = $(e.target).closest("th");
+        return $.transDataTableApi.column(th.index()).search($(e.target).val()).draw();
+      };
+    })(this));
+
+
+    $('#date-range').dateRangePicker(
+        {
+          showShortcuts: false,
+          format: 'YYYY-MM-DD'
+        }).bind('datepicker-change', function (evt, obj) {
+      var min = new Date(obj.date1);
+      var max = new Date(obj.date2);
+      var minUnix = new Date(new Date(min.getFullYear(), min.getMonth(), min.getDate())).getTime() / 1000;
+      var maxUnix = new Date(new Date(max.getFullYear(), max.getMonth(), max.getDate())).getTime() / 1000;
+      console.log(minUnix+"-"+maxUnix);
+      $.transDataTableApi.column(2).search(minUnix+"-"+maxUnix).draw();
+    });
+
+
+  });
+</script>
 
 
 
