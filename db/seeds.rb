@@ -21,4 +21,4 @@ puts "5 Transations created"
 
 User.create!({:email => "admin@gmail.com", :username => "admin123", :password => "admin123", :password_confirmation => "admin123" })
 
-puts "New user created, username - admin, password - admin"
+puts "New user created, username - admin@gmail.com, password - admin123"

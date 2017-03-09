@@ -9,4 +9,3 @@ ADD Gemfile /myapp/Gemfile
 ADD . /myapp
 
 RUN gem install bundle
-RUN bundle install
