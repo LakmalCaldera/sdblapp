@@ -5,7 +5,9 @@ RUN mkdir /myapp
 WORKDIR /myapp
 
 ADD Gemfile /myapp/Gemfile
-
 ADD . /myapp
 
 RUN gem install bundle
+
+# run app
+ENTRYPOINT ["sh", "docker-entrypoint.sh"]

@@ -6,8 +6,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=root
   web:
-    build: .
-    command: sh "init_db.sh"
+    image: hpcal1/sdblweb
     volumes:
       - .:/myapp
     ports:
