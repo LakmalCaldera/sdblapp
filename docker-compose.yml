@@ -6,10 +6,14 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=root
   web:
-    image: hpcal1/sdblweb
-    volumes:
-      - .:/myapp
+    build: .
     ports:
       - "3000:3000"
+    volumes:
+      - .:/myapp
+    environment:
+      - APP_DB_HOST=${APP_DB_HOST}
+      - APP_DB_DATABASE=${APP_DB_DATABASE}
+      - RAILS_ENV=${RAILS_ENV}
     depends_on:
       - db

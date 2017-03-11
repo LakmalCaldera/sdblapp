@@ -192,6 +192,7 @@ DEPENDENCIES
   mysql2 (~> 0.3.8)
   rails (= 5)
   rails_script (~> 0.6.1)
+  rake
   responders (~> 2.1.0)
   sass-rails (~> 5.0)
   spring
