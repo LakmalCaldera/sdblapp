@@ -15,5 +15,6 @@ services:
       - APP_DB_HOST=${APP_DB_HOST}
       - APP_DB_DATABASE=${APP_DB_DATABASE}
       - RAILS_ENV=${RAILS_ENV}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
     depends_on:
       - db

@@ -8,6 +8,9 @@ echo Running script to start application and setup db;
 # Must run this command to install gems at least once
   bundle install
 
+# Precompile all assets
+  bundle exec rake assets:precompile
+
 # create db, only need when building image first time[This command will fail running the next time]
   rake db:create --trace
 
