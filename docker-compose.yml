@@ -1,20 +1,25 @@
 version: '2'
 services:
-  db:
+  mysql:
     image: mysql
+    ports:
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=root
   web:
+    image: hpcal1/sdblweb:0.2
     build: .
     ports:
-      - "3000:3000"
+      - 3000:3000
     volumes:
       - .:/myapp
+      - .:/myapp/log
     environment:
       - APP_DB_HOST=${APP_DB_HOST}
+      - APP_DB_PORT=${APP_DB_PORT}
       - APP_DB_DATABASE=${APP_DB_DATABASE}
       - RAILS_ENV=${RAILS_ENV}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
-    depends_on:
-      - db
+    links:
+      - mysql

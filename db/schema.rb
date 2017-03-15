@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304130644) do
+ActiveRecord::Schema.define(version: 20170312161341) do
 
   create_table "agents", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "account", limit: 65535
-    t.text "branch",  limit: 65535
-    t.index ["account"], name: "index_agents_on_account", unique: true, length: {"account"=>64}, using: :btree
+    t.string "account", limit: 64,    null: false
+    t.text   "branch",  limit: 65535, null: false
+    t.index ["account"], name: "index_agents_on_account", unique: true, using: :btree
   end
 
   create_table "transactions", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text    "uid",       limit: 65535
-    t.text    "customer",  limit: 65535
-    t.integer "amount"
-    t.decimal "timestamp",               precision: 10
-    t.text    "status",    limit: 65535
+    t.string  "uid",       limit: 64,    null: false
+    t.text    "customer",  limit: 65535, null: false
+    t.integer "amount",                  null: false
+    t.text    "timestamp", limit: 65535, null: false
+    t.text    "status",    limit: 65535, null: false
     t.text    "mobile",    limit: 65535
-    t.text    "agent",     limit: 65535
-    t.index ["uid"], name: "index_transactions_on_uid", unique: true, length: {"uid"=>64}, using: :btree
+    t.string  "agent",     limit: 64,    null: false
+    t.index ["agent"], name: "fk_rails_1256aa2dee", using: :btree
+    t.index ["uid"], name: "index_transactions_on_uid", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -47,4 +48,5 @@ ActiveRecord::Schema.define(version: 20170304130644) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "transactions", "agents", column: "agent", primary_key: "account"
 end

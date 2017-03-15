@@ -209,17 +209,21 @@ $(function () {
         searching: true,
         ordering: true,
         deferRender: true,
+        pagination: true,
+        paginationType: "full_numbers",
+        /*bPaginate:true, // Pagination True
+        sPaginationType:"full_numbers", // And its type.*/
         fixedHeader: {
             header: false,
-            footer: false
+            footer: true
         },
         processing: true,
         serverSide: true,
-        scroller: true,
+        /*scroller: true,
+        scrollY: 500,*/
         paging: true,
-        scrollY: 500,
         language: {
-            "processing": "<div class='data-loader-container'><div class='data-loader'></div><br><div class='loading-text'>Loading data from server...</div></div>"
+            "processing": "<div class='data-loader-container'><div class='data-loader'></div><br><div class='loading-text'>Loading...</div></div>"
         }
     });
 });
