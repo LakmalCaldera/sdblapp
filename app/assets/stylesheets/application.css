@@ -66,9 +66,30 @@
     padding: 5px !important;
     background: #5fb2f3 !important;
     border-radius: 5px !important;
-    width: 80px !important;
+    width: 85px !important;
     text-align: center !important;
     color: white !important;
+    cursor:pointer;
+}
+
+.delete-btn{
+    margin-right: 2px;
+    line-height: 21px;
+    height: 21px;
+    border: 1px solid transparent;
+    margin: 0 0 1em 0;
+}
+
+.delete-btn > a{
+    height: 21px !important;
+    padding: 2px !important;
+    background: #F44336 !important;
+    border-radius: 5px !important;
+    width: 50px !important;
+    text-align: center !important;
+    font-size: 11px;
+    color: white !important;
+    cursor:pointer;
 }
 
 .filters .form-group{
@@ -151,10 +172,14 @@
     line-height: 2em !important;
 }
 
-#agents-footer, #trans-footer {
-    position: fixed;
-    bottom: 1px;
-    height: 30px;
-    width: 100%;
-    background-color: #ebebeb;
+.agent-add-action{
+    margin: 0 0 1em 0;
+}
+
+.zero-border{
+    border: 0 !important;
+}
+
+.red-text {
+    color: #F44336 !important;
 }

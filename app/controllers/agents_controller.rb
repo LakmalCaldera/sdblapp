@@ -55,9 +55,5 @@ class AgentsController < ApplicationController
     # Destroy/delete the record
     @agent_item.destroy
 
-    # Redirect
-    respond_to do |format|
-      format.html { redirect_to agents_path, notice: 'Record was removed.' }
-    end
   end
 end

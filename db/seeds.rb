@@ -1,9 +1,18 @@
-3.times do |index|
+User.create!({:email => "admin@gmail.com", :username => "admin123", :password => "admin123", :password_confirmation => "admin123",  })
+
+puts "New Admin user created, username - admin123, password - admin123"
+
+User.create!({:email => "user@gmail.com", :username => "user123", :password => "user123", :password_confirmation => "user123" })
+
+puts "New Normal user created, username - user123, password - user123"
+
+20.times do |index|
   Agent.create!(
       branch: "Brand 1213#{index*20 + 1}",
       account: index+1)
 end
 
+puts "Created 20 dummy agents"
 
 500.times do |index|
   Transaction.create!(
@@ -17,8 +26,5 @@ end
   )
 end
 
+puts "Created 500 dummy transactions which belong to Agent 1"
 
-
-User.create!({:email => "admin@gmail.com", :username => "admin123", :password => "admin123", :password_confirmation => "admin123" })
-
-puts "New user created, username - admin@gmail.com, password - admin123"

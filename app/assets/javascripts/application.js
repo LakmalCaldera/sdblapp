@@ -119,24 +119,97 @@ App.Agents = (function (superClass) {
 
     Agents.prototype.index = function () {
         return $(function () {
-            $('#agentTable').dataTable({
+            var table = $('#agentTable').DataTable({
                 ajax: Routes.agents_path(),
                 columns: [
                     {
                         data: "account"
                     }, {
                         data: "branch"
+                    }, {
+                        data: "actions",
+                        orderable: false
+
                     }
                 ],
                 initComplete: function () {
                     var api = this.api();
                     $.agentsDataTableApi = api;
                 },
-                dom: '<"agent-add-action">frtip'
+                dom: '<"agent-add-action">frtip',
+                language: {
+                    "lengthMenu": "Display _MENU_ records per page",
+                    "zeroRecords": "No agents available",
+                    /*"info": "Showing page _PAGE_ of _PAGES_",*/
+                    "info": "<strong>Agents Summary:</strong><br>Showing: _START_ to _END_ records<br>Number of agents after filter: _TOTAL_<br>Total number of agents: _MAX_",
+                    "infoEmpty": "No agents available",
+                    "infoFiltered": ""
+                },
+                columnDefs: [{
+                    "targets": -1,
+                    "data": null,
+                    //"defaultContent": '<a><i class="fa fa-times red-text"></i>Delete</a>'
+                    "defaultContent": function () {
+                        return $("body").attr("user-is-admin") == "true" ? '<ul class="nav nav-tabs zero-border"><li class="delete-btn"><a>Delete</a></li></ul>' : 'None Available'
+                    }()
+                }]
             });
 
 
-            $("div.agent-add-action").html('<button data-toggle="modal" data-target="#createModal">Add Agent</button>');
+            $("div.agent-add-action").html('<ul class="nav nav-tabs zero-border"><li class="sign-out"><a class="nav-link" data-toggle="modal" data-target="#createModal"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</a></li></ul>');
+
+            $('#agentTable tbody').on('click', '.delete-btn', function () {
+                var data = table.row($(this).parents('tr')).data();
+
+                $.confirm({
+                    title: 'Confirm Delete Agent!',
+                    content: "Are you sure you want to delete <strong>Agent " + data.account + "</strong>?<br>And all associated transactions?",
+                    type: 'red',
+                    buttons: {
+                        ok: {
+                            text: 'Confirm',
+                            btnClass: 'btn-red',
+                            action: function () {
+                                clientComm.delete("agents", data.account, function (res) {
+                                    $.alert({
+                                        title: 'Success!',
+                                        content: "Deleted <strong>Agent " + data.account + "</strong> and all its transactions.",
+                                        type: 'green',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            ok: {
+                                                text: 'Ok',
+                                                action: function () {
+                                                    table.draw();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }, function (xhr, status, error) {
+                                    $.alert({
+                                        title: 'Error!',
+                                        content: "Agent could not be delete at the moment. Please contact admin.",
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            ok: {
+                                                text: 'Ok',
+                                                action: function () {
+                                                    table.draw();
+                                                }
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        },
+                        close: function () {
+                        }
+                    }
+                });
+            });
+
+
         });
     };
 
@@ -160,6 +233,8 @@ App.Transactions = (function (superClass) {
                     {
                         data: "agent"
                     }, {
+                        data: "branch"
+                    }, {
                         data: "customer"
                     }, {
                         data: "timestamp"
@@ -169,7 +244,7 @@ App.Transactions = (function (superClass) {
                         data: "mobile"
                     }, {
                         data: "amount",
-                        render: $.fn.dataTable.render.number( ',', '.', 2 )
+                        render: $.fn.dataTable.render.number(',', '.', 2)
                     }
                 ],
                 "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
@@ -178,22 +253,31 @@ App.Transactions = (function (superClass) {
                     var response = this.api().ajax.json();
 
                     // Update footer
-                    $(api.column(5).footer()).html(
+                    $(api.column(6).footer()).html(
                         'Rs ' + response["filteredTotalAmount"].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
                     );
                 },
                 columnDefs: [{
-                    targets: 2,
+                    targets: 3,
                     render: $.fn.dataTable.render.moment('X', 'Do MMM YY')
                 }],
                 initComplete: function () {
-                      $('.filters input, .filters select', this).on('keyup', (function (_this) {
+                    $('.filters input, .filters select', this).on('keyup', (function (_this) {
                         return function (e) {
                             var th;
                             th = $(e.target).closest("th");
                             return _this.api().column(th.index()).search($(e.target).val()).draw();
                         };
                     })(this));
+                },
+                dom: '<"agent-add-action">frtip',
+                language: {
+                    "lengthMenu": "Display _MENU_ records per page",
+                    "zeroRecords": "No transactions available",
+                    /*"info": "Showing page _PAGE_ of _PAGES_",*/
+                    "info": "<strong>Transactions Summary:</strong><br>Showing: _START_ to _END_ records<br>Number of transactions after filter: _TOTAL_<br>Total number of transactions: _MAX_",
+                    "infoEmpty": "No transactions available",
+                    "infoFiltered": ""
                 }
             });
 
@@ -205,6 +289,45 @@ App.Transactions = (function (superClass) {
 })(App.Base);
 
 $(function () {
+
+
+    $.ajaxSetup({
+        error: function (jqXHR, exception) {
+            var errorString = "";
+            if (jqXHR.status === 0) {
+                errorString = ('Not connect.\n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                errorString = ('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                errorString = ('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                errorString = ('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                errorString = ('Time out error.');
+            } else if (exception === 'abort') {
+                errorString = ('Ajax request aborted.');
+            } else {
+                errorString = ('Uncaught Error.\n' + jqXHR.responseText);
+            }
+
+            $.alert({
+                title: 'Communication Error!',
+                content: errorString,
+                type: 'red',
+                typeAnimated: true,
+                buttons: {
+                    ok: {
+                        text: 'Ok',
+                        action: function () {
+                        }
+                    }
+                }
+            });
+
+        }
+    });
+
+
     return $.extend($.fn.DataTable.defaults, {
         searching: true,
         ordering: true,
@@ -212,19 +335,30 @@ $(function () {
         pagination: true,
         paginationType: "full_numbers",
         /*bPaginate:true, // Pagination True
-        sPaginationType:"full_numbers", // And its type.*/
+         sPaginationType:"full_numbers", // And its type.*/
         fixedHeader: {
             header: false,
             footer: true
         },
-        processing: true,
+        /*processing: true,*/
         serverSide: true,
         /*scroller: true,
-        scrollY: 500,*/
+         scrollY: 500,*/
         paging: true,
-        language: {
-            "processing": "<div class='data-loader-container'><div class='data-loader'></div><br><div class='loading-text'>Loading...</div></div>"
-        }
+        /*language: {
+         "processing": "<div class='data-loader-container'><div class='data-loader'></div><br><div class='loading-text'>Loading...</div></div>"
+         },*/
     });
 });
+
+var clientComm = new function () {
+    return {
+        delete: function (table, id, success, fail) {
+            $.ajax({
+                url: '/' + table + '/' + id,
+                type: 'DELETE'
+            }).done(success).fail(fail);
+        }
+    }
+}()
 
