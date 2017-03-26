@@ -15,7 +15,7 @@
 
 
 
-<div>
+<div id="">
   <div>
     <div class="panel">
 
@@ -30,7 +30,7 @@
                   <div class="input-group input-group-md">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
                     <div class="icon-addon addon-md">
-                      <input type="text" placeholder="Agents" class="form-control">
+                      <input type="text" placeholder="Account" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -42,7 +42,7 @@
                   <div class="input-group input-group-md">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
                     <div class="icon-addon addon-md">
-                      <input type="text" placeholder="Branches" class="form-control">
+                      <input type="text" placeholder="Branch" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -79,65 +79,6 @@
 
 
 
-
-  <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
-       aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <%= form_for(@agent_item) do |f| %>
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <button type="button" class="close"
-                  data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">
-            Create a new Agent
-          </h4>
-        </div>
-
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-
-          <div class="form-horizontal" role="form">
-
-
-                <div class="form-group">
-                  <%= f.label :account, class:  'col-sm-2 control-label' %>
-                    <div class="col-sm-10">
-                      <%= f.text_field :account, class: 'form-control' %>
-                    </div>
-                </div>
-                <div class="form-group">
-                  <%= f.label :branch, class:  'col-sm-2 control-label' %>
-                  <div class="col-sm-10">
-                    <%= f.text_field :branch, class: 'form-control' %>
-                  </div>
-                </div>
-
-          </div>
-
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit :class => "btn btn-primary" %>
-
-        </div>
-
-
-      </div>
-        <% end %>
-    </div>
-  </div>
-
-
-
-
   <script>
     $(document).ready(function () {
       $('.filters input, .filters select', this).on('keyup', (function (_this) {
@@ -147,6 +88,115 @@
           return $.agentsDataTableApi.column(th.index()).search($(e.target).val()).draw();
         };
       })(this));
+
+      $("#create_agent_btn").click(function(){
+        $.confirm({
+          title: 'Create a New Agent',
+          content: '' +
+          '<form class="formName" id="create-agent-form">' +
+          '<div class="form-group">' +
+          '<label>Enter Account:</label>' +
+          '<input type="text" placeholder="Account" class="account-field form-control" required  maxlength="12" />' +
+          '</div>' +
+          '<div class="form-group">' +
+          '<label>Enter Branch:</label>' +
+          '<input type="text" placeholder="Branch" class="branch-field form-control" required />' +
+          '</div>' +
+          '</form>',
+          type: "blue",
+          buttons: {
+            formSubmit: {
+              text: 'Create',
+              btnClass: 'btn-blue',
+              action: function () {
+                var accountFieldValue = this.$content.find('.account-field').val();
+                var branchFieldValue = this.$content.find('.branch-field').val();
+                if(!accountFieldValue){
+                  $.alert({
+                    title: 'Validation Error!',
+                    content: "Please enter an Account id.",
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                      ok: {
+                        text: 'Ok',
+                        action: function () {
+                        }
+                      }
+                    }
+                  });
+                  return false;
+                }else{
+                  if(accountFieldValue.length < 6){
+                    $.alert({
+                      title: 'Validation Error!',
+                      content: "Account id must be 6 or more characters.",
+                      type: 'red',
+                      typeAnimated: true,
+                      buttons: {
+                        ok: {
+                          text: 'Ok',
+                          action: function () {
+                          }
+                        }
+                      }
+                    });
+                    return false;
+                  }else{
+                    clientComm.post("/agents", "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue, function(){
+                      //Successs
+                      $.alert({
+                        title: 'Success!',
+                        content: "Agent successfully added.",
+                        type: 'green',
+                        typeAnimated: true,
+                        buttons: {
+                          ok: {
+                            text: 'Ok',
+                            action: function () {
+                            }
+                          }
+                        }
+                      });
+                      $.agentsTable.draw();
+                    }, function(){
+                      // Fail
+                      $.alert({
+                        title: 'Server Error!',
+                        content: "Error trying to add agent. Please contact admin.",
+                        type: 'red',
+                        typeAnimated: true,
+                        buttons: {
+                          ok: {
+                            text: 'Ok',
+                            action: function () {
+                            }
+                          }
+                        }
+                      });
+
+
+                    })
+                  }
+                }
+              }
+            },
+            cancel: function () {
+              //close
+            },
+          },
+          onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+              // if the user submits the form by pressing enter in the field.
+              e.preventDefault();
+              jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+          }
+        });
+      });
+
     });
   </script>
 

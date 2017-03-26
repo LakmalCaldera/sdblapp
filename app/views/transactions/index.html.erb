@@ -117,7 +117,7 @@
               <th>Agent</th>
               <th>Branch</th>
               <th>Customer</th>
-              <th>Transaction Date</th>
+              <th>Transaction Date/Time</th>
               <th>Status</th>
               <th>Mobile No</th>
               <th>Transaction Amount</th>
@@ -161,10 +161,9 @@
       var max = new Date(obj.date2);
       var minUnix = new Date(new Date(min.getFullYear(), min.getMonth(), min.getDate())).getTime() / 1000;
       var maxUnix = new Date(new Date(max.getFullYear(), max.getMonth(), max.getDate())).getTime() / 1000;
-      console.log(minUnix+"-"+maxUnix);
-      $.transDataTableApi.column(2).search(minUnix+"-"+maxUnix).draw();
+      console.log(minUnix + "-" + maxUnix);
+      $.transDataTableApi.column(3).search(minUnix + "-" + maxUnix).draw();
     });
-
 
   });
 </script>

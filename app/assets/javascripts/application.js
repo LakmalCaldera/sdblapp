@@ -119,7 +119,7 @@ App.Agents = (function (superClass) {
 
     Agents.prototype.index = function () {
         return $(function () {
-            var table = $('#agentTable').DataTable({
+            var table = $.agentsTable = $('#agentTable').DataTable({
                 ajax: Routes.agents_path(),
                 columns: [
                     {
@@ -141,7 +141,7 @@ App.Agents = (function (superClass) {
                     "lengthMenu": "Display _MENU_ records per page",
                     "zeroRecords": "No agents available",
                     /*"info": "Showing page _PAGE_ of _PAGES_",*/
-                    "info": "<strong>Agents Summary:</strong><br>Showing: _START_ to _END_ records<br>Number of agents after filter: _TOTAL_<br>Total number of agents: _MAX_",
+                    "info": "<table><th><strong>Agents Summary</strong></th><tr><td>Agent count after filter</td><td class='summary-colon'>:</td><td> _TOTAL_</td></tr><tr><td>Total agent count</td><td class='summary-colon'>:</td><td> _MAX_</td></tr>",
                     "infoEmpty": "No agents available",
                     "infoFiltered": ""
                 },
@@ -150,13 +150,13 @@ App.Agents = (function (superClass) {
                     "data": null,
                     //"defaultContent": '<a><i class="fa fa-times red-text"></i>Delete</a>'
                     "defaultContent": function () {
-                        return $("body").attr("user-is-admin") == "true" ? '<ul class="nav nav-tabs zero-border"><li class="delete-btn"><a>Delete</a></li></ul>' : 'None Available'
+                        return $("body").attr("user-is-admin") == "true" ? '<ul class="nav nav-tabs zero-border"><li class="delete-btn"><a>Delete</a></li><li class="update-btn"><a>Update</a></li></ul>' : 'None Available'
                     }()
                 }]
             });
 
 
-            $("div.agent-add-action").html('<ul class="nav nav-tabs zero-border"><li class="sign-out"><a class="nav-link" data-toggle="modal" data-target="#createModal"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</a></li></ul>');
+            $("div.agent-add-action").html('<ul class="nav nav-tabs zero-border"><li class="sign-out"><a class="nav-link" id="create_agent_btn"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</a></li></ul>');
 
             $('#agentTable tbody').on('click', '.delete-btn', function () {
                 var data = table.row($(this).parents('tr')).data();
@@ -180,11 +180,11 @@ App.Agents = (function (superClass) {
                                             ok: {
                                                 text: 'Ok',
                                                 action: function () {
-                                                    table.draw();
                                                 }
                                             }
                                         }
                                     });
+                                    table.draw();
                                 }, function (xhr, status, error) {
                                     $.alert({
                                         title: 'Error!',
@@ -195,11 +195,11 @@ App.Agents = (function (superClass) {
                                             ok: {
                                                 text: 'Ok',
                                                 action: function () {
-                                                    table.draw();
                                                 }
                                             }
                                         }
                                     });
+                                    table.draw();
                                 });
                             }
                         },
@@ -208,6 +208,122 @@ App.Agents = (function (superClass) {
                     }
                 });
             });
+
+
+
+
+
+            $('#agentTable tbody').on('click', '.update-btn', function () {
+                var data = table.row($(this).parents('tr')).data();
+
+                $.confirm({
+                    title: 'Update Agent',
+                    content: '' +
+                    '<form class="formName" id="create-agent-form">' +
+                    '<div class="form-group">' +
+                    '<label>Enter Account:</label>' +
+                    '<input type="text" placeholder="Account" class="account-field form-control" required  maxlength="12" value="'+ data.account +'" readonly/>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label>Enter Branch:</label>' +
+                    '<input type="text" placeholder="Branch" class="branch-field form-control" required  value="'+ data.branch +'" />' +
+                    '</div>' +
+                    '</form>',
+                    type: "orange",
+                    buttons: {
+                        formSubmit: {
+                            text: 'Update',
+                            btnClass: 'btn-orange',
+                            action: function () {
+                                var accountFieldValue = this.$content.find('.account-field').val();
+                                var branchFieldValue = this.$content.find('.branch-field').val();
+                                if(!accountFieldValue){
+                                    $.alert({
+                                        title: 'Validation Error!',
+                                        content: "Please enter an Account id.",
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            ok: {
+                                                text: 'Ok',
+                                                action: function () {
+                                                }
+                                            }
+                                        }
+                                    });
+                                    return false;
+                                }else{
+                                    if(accountFieldValue.length < 6){
+                                        $.alert({
+                                            title: 'Validation Error!',
+                                            content: "Account id must be 6 or more characters.",
+                                            type: 'red',
+                                            typeAnimated: true,
+                                            buttons: {
+                                                ok: {
+                                                    text: 'Ok',
+                                                    action: function () {
+                                                    }
+                                                }
+                                            }
+                                        });
+                                        return false;
+                                    }else{
+                                        clientComm.put("/agents/"+accountFieldValue, "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue, function(){
+                                            //Successs
+                                            $.alert({
+                                                title: 'Success!',
+                                                content: "Agent successfully updated.",
+                                                type: 'green',
+                                                typeAnimated: true,
+                                                buttons: {
+                                                    ok: {
+                                                        text: 'Ok',
+                                                        action: function () {
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                            $.agentsTable.draw();
+                                        }, function(){
+                                            // Fail
+                                            $.alert({
+                                                title: 'Server Error!',
+                                                content: "Error trying to update agent. Please contact admin.",
+                                                type: 'red',
+                                                typeAnimated: true,
+                                                buttons: {
+                                                    ok: {
+                                                        text: 'Ok',
+                                                        action: function () {
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+
+                                        })
+                                    }
+                                }
+                            }
+                        },
+                        cancel: function () {
+                            //close
+                        },
+                    },
+                    onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                            // if the user submits the form by pressing enter in the field.
+                            e.preventDefault();
+                            jc.$$formSubmit.trigger('click'); // reference the button and click it
+                        });
+                    }
+                });
+            });
+
+
 
 
         });
@@ -247,19 +363,23 @@ App.Transactions = (function (superClass) {
                         render: $.fn.dataTable.render.number(',', '.', 2)
                     }
                 ],
+                order: [[ 3, "desc" ]],
                 "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                     var api = this.api();
                     $.transDataTableApi = api;
                     var response = this.api().ajax.json();
 
+                    var totalValueString = 'Rs ' + response["filteredTotalAmount"].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
                     // Update footer
                     $(api.column(6).footer()).html(
-                        'Rs ' + response["filteredTotalAmount"].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+                        totalValueString
                     );
+
+                    $("#transAmount").text("Lakmal");
                 },
                 columnDefs: [{
                     targets: 3,
-                    render: $.fn.dataTable.render.moment('X', 'Do MMM YY')
+                    render: $.fn.dataTable.render.moment('X', 'Do MMM YY - HH:MM a')
                 }],
                 initComplete: function () {
                     $('.filters input, .filters select', this).on('keyup', (function (_this) {
@@ -275,7 +395,7 @@ App.Transactions = (function (superClass) {
                     "lengthMenu": "Display _MENU_ records per page",
                     "zeroRecords": "No transactions available",
                     /*"info": "Showing page _PAGE_ of _PAGES_",*/
-                    "info": "<strong>Transactions Summary:</strong><br>Showing: _START_ to _END_ records<br>Number of transactions after filter: _TOTAL_<br>Total number of transactions: _MAX_",
+                    "info": "<table><th><strong>Transactions Summary</strong></th><tr><td>Transaction count after filter</td><td class='summary-colon'>:</td><td> _TOTAL_</td></tr><tr><td>Total transaction count</td><td class='summary-colon'>:</td><td> _MAX_</td></tr>",
                     "infoEmpty": "No transactions available",
                     "infoFiltered": ""
                 }
@@ -358,7 +478,29 @@ var clientComm = new function () {
                 url: '/' + table + '/' + id,
                 type: 'DELETE'
             }).done(success).fail(fail);
+        },
+        post: function (_url, _data, success, fail){
+            $.ajax({
+                url: _url,
+                data: _data,
+                type: 'POST'
+            }).done(success).fail(fail);
+        },
+        put: function (_url, _data, success, fail){
+            $.ajax({
+                url: _url,
+                data: _data,
+                type: 'PUT'
+            }).done(success).fail(fail);
         }
     }
 }()
+
+
+function pad_with_zeroes(string, length) {
+    while (string.length < length) {
+        string = '0' + string;
+    }
+    return string;
+}
 

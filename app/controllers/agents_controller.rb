@@ -17,15 +17,8 @@ class AgentsController < ApplicationController
   end
 
   def create
-    @agent_item = Agent.new(params.require(:agent).permit(:account, :branch))
-
-    respond_to do |format|
-      if @agent_item.save
-        format.html { redirect_to agents_path, notice: 'Your portfolio item is now live.' }
-      else
-        format.html { render :new }
-      end
-    end
+    @agent_item = Agent.new(params.permit(:account, :branch))
+    @agent_item.save
   end
 
   def edit
@@ -34,14 +27,7 @@ class AgentsController < ApplicationController
 
   def update
     @agent_item = Agent.find(params[:id])
-
-    respond_to do |format|
-      if @agent_item.update(params.require(:agent).permit(:account, :branch))
-        format.html { redirect_to agents_path, notice: 'The record successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
+    @agent_item.update(params.permit(:account, :branch))
   end
 
   def show

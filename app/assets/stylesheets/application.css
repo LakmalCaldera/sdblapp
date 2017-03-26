@@ -92,6 +92,26 @@
     cursor:pointer;
 }
 
+.update-btn{
+    margin-right: 2px;
+    line-height: 21px;
+    height: 21px;
+    border: 1px solid transparent;
+    margin: 0 0 1em 0;
+}
+
+.update-btn > a{
+    height: 21px !important;
+    padding: 2px !important;
+    background: #ffbd09 !important;
+    border-radius: 5px !important;
+    width: 50px !important;
+    text-align: center !important;
+    font-size: 11px;
+    color: white !important;
+    cursor:pointer;
+}
+
 .filters .form-group{
     margin: 0 !important;
 }
@@ -164,10 +184,6 @@
     margin: 0.5em 0;
 }
 
-.form-group{
-    height: 32px !important;
-}
-
 .control-label{
     line-height: 2em !important;
 }
@@ -182,4 +198,71 @@
 
 .red-text {
     color: #F44336 !important;
+}
+
+.dataTables_info{
+    font-size: 17px !important;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+    border: 0 solid #368ecc !important;
+    color: #368ecc;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+    padding: 10px 18px;
+    border-bottom: 1px solid #368ecc !important;
+}
+
+table.dataTable.no-footer{
+    border-bottom: 0 !important;
+}
+
+.table-bordered{
+    border: 0 !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+ background: aliceblue !important;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    color: #368ecc !important;
+    font-weight: 400 !important;
+}
+
+.nav-link{
+    color: grey !important;
+}
+
+.input-group-addon{
+    background: aliceblue !important;
+    color: #368ecc !important;
+    border-color: #368ecc !important;
+}
+
+.form-control{
+    border-color: #368ecc !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+.table.dataTable{
+    border-collapse: collapse !important;
+}
+
+tfoot{
+    border-top: 1px solid #368ecc !important;
+}
+
+.summary-colon{
+    padding: 0 1em !important;
+}
+
+#transactionTable, #agentTable{
+    border-bottom: 1px solid #368ecc !important;
+}
+
+.dataTables_wrapper .dataTables_paginate{
+    padding-top: 0.755em !important;
 }

@@ -66,6 +66,3 @@ class TransactionsDatatable < AjaxDatatablesRails::Base
     }
   end
 end
-
-
-
