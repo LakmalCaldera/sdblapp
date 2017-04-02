@@ -6,6 +6,7 @@ class TransactionsDatatable < AjaxDatatablesRails::Base
     @view_columns ||={
         agent: {source: "Transaction.agent", cond: filter_custom_column_condition},
         branch: {source: "Agent.branch", cond: filter_custom_column_condition},
+        region: {source: "Agent.region", cond: filter_custom_column_condition},
         customer: {source: "Transaction.customer", cond: filter_custom_column_condition},
         timestamp: {source: "Transaction.timestamp", cond: filter_date_range_condition},
         status: {source: "Transaction.status", cond: filter_custom_column_condition},
@@ -20,6 +21,7 @@ class TransactionsDatatable < AjaxDatatablesRails::Base
           # example:
           agent: record.agent,
           branch: record.branch,
+          region: record.region,
           customer: record.customer,
           timestamp: record.timestamp,
           status: record.status,
@@ -41,13 +43,7 @@ class TransactionsDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    # insert query here
-    #Transaction.all
     Agent.select("agents.*, transactions.*").joins(:transactions)
-    #Transaction.joins(:agents)
-    #sql = "Select * from transactions INNER JOIN agents ON transactions.agent = agents.account"
-    #ActiveRecord::Base.connection.execute(sql)
-    #Order.includes(:client, :agent).references(:client, :agent)
   end
 
   def filter_custom_column_condition

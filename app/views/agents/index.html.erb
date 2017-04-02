@@ -7,6 +7,9 @@
       <li class="presentation">
         <%= link_to "Transactions", transactions_path, class: 'nav-link' %>
       </li>
+      <li class="presentation">
+        <%= link_to "Mobile App", uploads_path, class: 'nav-link' %>
+      </li>
       <li class="sign-out pull-right">
         <%= link_to '<span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out'.html_safe, destroy_user_session_path, :method => :delete, class: 'nav-link' %>
       </li>
@@ -52,6 +55,18 @@
 
                 <div class="form-group">
                   <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Region" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+              </th>
+              <th>
+
+                <div class="form-group">
+                  <div class="input-group input-group-md">
                   </div>
                 </div>
 
@@ -60,6 +75,7 @@
             <tr>
               <th>Account</th>
               <th>Branch</th>
+              <th>Region</th>
               <th>Actions</th>
             </tr>
             </thead>
@@ -102,6 +118,10 @@
           '<label>Enter Branch:</label>' +
           '<input type="text" placeholder="Branch" class="branch-field form-control" required />' +
           '</div>' +
+          '<div class="form-group">' +
+          '<label>Enter Region:</label>' +
+          '<input type="text" placeholder="Region" class="region-field form-control" required />' +
+          '</div>' +
           '</form>',
           type: "blue",
           buttons: {
@@ -111,10 +131,26 @@
               action: function () {
                 var accountFieldValue = this.$content.find('.account-field').val();
                 var branchFieldValue = this.$content.find('.branch-field').val();
+                var regionFieldValue = this.$content.find('.region-field').val();
                 if(!accountFieldValue){
                   $.alert({
                     title: 'Validation Error!',
                     content: "Please enter an Account id.",
+                    type: 'red',
+                    typeAnimated: true,
+                    buttons: {
+                      ok: {
+                        text: 'Ok',
+                        action: function () {
+                        }
+                      }
+                    }
+                  });
+                  return false;
+                }else if(!regionFieldValue){
+                  $.alert({
+                    title: 'Validation Error!',
+                    content: "Please enter a Region.",
                     type: 'red',
                     typeAnimated: true,
                     buttons: {
@@ -143,7 +179,7 @@
                     });
                     return false;
                   }else{
-                    clientComm.post("/agents", "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue, function(){
+                    clientComm.post("/agents", "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue+"&region="+regionFieldValue, function(){
                       //Successs
                       $.alert({
                         title: 'Success!',

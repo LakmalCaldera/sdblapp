@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316151347) do
+ActiveRecord::Schema.define(version: 20170326154212) do
 
   create_table "agents", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "account", limit: 64,    null: false
     t.text   "branch",  limit: 65535, null: false
+    t.text   "region",  limit: 65535, null: false
     t.index ["account"], name: "index_agents_on_account", unique: true, using: :btree
   end
 

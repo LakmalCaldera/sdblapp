@@ -6,17 +6,14 @@
     <li class="presentation active">
       <a class="nav-link" href="#">Transactions <span class="sr-only">(current)</span></a>
     </li>
+    <li class="presentation">
+      <%= link_to "Mobile App", uploads_path, class: 'nav-link' %>
+    </li>
     <li class="sign-out pull-right">
       <%= link_to '<span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out'.html_safe, destroy_user_session_path, :method => :delete, class: 'nav-link' %>
     </li>
   </ul>
 </div>
-
-
-
-<!--<p>Enter Date: <input class ="datepicker"></p>-->
-
-
 
 
 <div>
@@ -47,6 +44,18 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
                     <div class="icon-addon addon-md">
                       <input type="text" placeholder="Branch" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+              </th>
+              <th>
+
+                <div class="form-group">
+                  <div class="input-group input-group-md">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-filter"></i></span>
+                    <div class="icon-addon addon-md">
+                      <input type="text" placeholder="Region" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -116,6 +125,7 @@
             <tr>
               <th>Agent</th>
               <th>Branch</th>
+              <th>Region</th>
               <th>Customer</th>
               <th>Transaction Date/Time</th>
               <th>Status</th>
@@ -125,7 +135,7 @@
             </thead>
             <tfoot>
             <tr>
-              <th colspan="6" style="text-align:right">Total:</th>
+              <th colspan="7" style="text-align:right">Total:</th>
               <th></th>
             </tr>
             </tfoot>
@@ -162,7 +172,7 @@
       var minUnix = new Date(new Date(min.getFullYear(), min.getMonth(), min.getDate())).getTime() / 1000;
       var maxUnix = new Date(new Date(max.getFullYear(), max.getMonth(), max.getDate())).getTime() / 1000;
       console.log(minUnix + "-" + maxUnix);
-      $.transDataTableApi.column(3).search(minUnix + "-" + maxUnix).draw();
+      $.transDataTableApi.column(4).search(minUnix + "-" + maxUnix).draw();
     });
 
   });

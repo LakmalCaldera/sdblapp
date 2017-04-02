@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :agents
   resources :transactions
+  resources :uploads
 
   root to: 'agents#index'
 

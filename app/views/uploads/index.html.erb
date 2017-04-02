@@ -1,0 +1,125 @@
+<div class="nav-container">
+  <ul class="nav nav-tabs">
+    <li class="presentation">
+      <%= link_to "Agents", agents_path, class: 'nav-link' %>
+    </li>
+    <li class="presentation">
+      <%= link_to "Transactions", transactions_path, class: 'nav-link' %>
+    </li>
+    <li class="presentation active">
+      <a class="nav-link" href="#">Mobile App <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="sign-out pull-right">
+      <%= link_to '<span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out'.html_safe, destroy_user_session_path, :method => :delete, class: 'nav-link' %>
+    </li>
+  </ul>
+</div>
+
+<section class="upload-content">
+
+
+  <div id="upload-section">
+    <% if current_user.admin? %>
+        <h4>Upload Apk:</h4>
+        <%= form_tag '/uploads', {:multipart => true} do %>
+            <p>
+              <%= file_field_tag 'upload[file]' %>
+            </p>
+            <p>
+              <%= submit_tag "Upload" %>
+            </p>
+        <% end %>
+    <% end %>
+  </div>
+
+  <table id="downloadTable">
+    <thead>
+    <h4>Available Apk:</h4>
+    </thead>
+    <tbody id="downloadTableBody">
+    <% @files.each do |file| %>
+        <% if file != "." && file != ".." %>
+            <tr data-url='<%= file %>'>
+              <td>
+                <span class="file-name"><%= file %></span>
+              </td>
+              <td>
+                :
+              </td>
+              <td>
+                <ul class="nav nav-tabs zero-border" data-no-turbolink>
+                  <li class="download-file-btn"><%= link_to "Download", "uploads/apk/#{file}" %></li>
+                  <% if current_user.admin? %>
+                  <li class="delete-file-btn"><a>Delete</a></li>
+                  <% end %>
+                </ul>
+              </td>
+            </tr>
+        <% end %>
+    <% end %>
+
+    <% if @files.count <= 2 %>
+        <tr>No donwloads available at this moment.</tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+</section>
+
+
+<script>
+  $('#downloadTable tbody').on('click', '.delete-file-btn', function () {
+    var row = $(this).parents('tr');
+    var fileName = row.attr("data-url");
+
+    $.confirm({
+      title: 'Confirm Delete File!',
+      content: "Are you sure you want to delete <strong>" + fileName + "</strong>?",
+      type: 'red',
+      buttons: {
+        ok: {
+          text: 'Confirm',
+          btnClass: 'btn-red',
+          action: function () {
+            clientComm.delete("uploads", fileName, function (res) {
+              // Reloading from server
+              if ($("#downloadTableBody tr").length <= 1) {
+                row.html("No downloads available at this moment.");
+              } else {
+                row.remove();
+              }
+
+            }, function (xhr, status, error) {
+              $.alert({
+                title: 'Error!',
+                content: "File could not be deleted. Please contact admin.",
+                type: 'red',
+                typeAnimated: true,
+                buttons: {
+                  ok: {
+                    text: 'Ok',
+                    action: function () {
+                    }
+                  }
+                }
+              });
+            });
+          }
+        },
+        close: function () {
+        }
+      }
+    });
+  });
+
+
+  $('input:submit').attr('disabled',true);
+  $('input:file').change(
+      function(){
+        if ($(this).val()) {
+          $('input:submit').attr('disabled',false);
+        }
+      }
+  );
+</script>

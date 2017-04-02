@@ -1,9 +1,6 @@
 class AgentsController < ApplicationController
   respond_to :html, :json
   def index
-    @agent_item = Agent.new
-    @agents_count = Agent.all.size
-
     respond_to do |format|
       format.html
       format.json do
@@ -17,7 +14,7 @@ class AgentsController < ApplicationController
   end
 
   def create
-    @agent_item = Agent.new(params.permit(:account, :branch))
+    @agent_item = Agent.new(params.permit(:account, :branch, :region))
     @agent_item.save
   end
 
@@ -27,7 +24,7 @@ class AgentsController < ApplicationController
 
   def update
     @agent_item = Agent.find(params[:id])
-    @agent_item.update(params.permit(:account, :branch))
+    @agent_item.update(params.permit(:account, :branch, :region))
   end
 
   def show
@@ -36,7 +33,7 @@ class AgentsController < ApplicationController
 
   def destroy
     # Perform the lookup
-    @agent_item = Agent.find(params[:id])
+    @agent_item = Agent.find(params[:item])
 
     # Destroy/delete the record
     @agent_item.destroy

@@ -53,7 +53,7 @@
     width: 100% !important;
 }
 
-.sign-out{
+.sign-out, .download-file-btn{
     margin-right: 2px;
     line-height: 32px;
     height: 32px;
@@ -61,10 +61,29 @@
     margin: 0 0 1em 0;
 }
 
-.sign-out > a{
+.sign-out > a, .download-file-btn > a{
     height: 32px !important;
     padding: 5px !important;
     background: #5fb2f3 !important;
+    border-radius: 5px !important;
+    width: 85px !important;
+    text-align: center !important;
+    color: white !important;
+    cursor:pointer;
+}
+
+.delete-file-btn{
+    margin-right: 2px;
+    line-height: 32px;
+    height: 32px;
+    border: 1px solid transparent;
+    margin: 0 0 1em 0;
+}
+
+.delete-file-btn > a{
+    height: 32px !important;
+    padding: 5px !important;
+    background: #F44336 !important;
     border-radius: 5px !important;
     width: 85px !important;
     text-align: center !important;

@@ -127,6 +127,8 @@ App.Agents = (function (superClass) {
                     }, {
                         data: "branch"
                     }, {
+                        data: "region"
+                    }, {
                         data: "actions",
                         orderable: false
 
@@ -228,6 +230,10 @@ App.Agents = (function (superClass) {
                     '<label>Enter Branch:</label>' +
                     '<input type="text" placeholder="Branch" class="branch-field form-control" required  value="'+ data.branch +'" />' +
                     '</div>' +
+                    '<div class="form-group">' +
+                    '<label>Enter Region:</label>' +
+                    '<input type="text" placeholder="Region" class="region-field form-control" required  value="'+ data.region +'" />' +
+                    '</div>' +
                     '</form>',
                     type: "orange",
                     buttons: {
@@ -237,10 +243,26 @@ App.Agents = (function (superClass) {
                             action: function () {
                                 var accountFieldValue = this.$content.find('.account-field').val();
                                 var branchFieldValue = this.$content.find('.branch-field').val();
+                                var regionFieldValue = this.$content.find('.region-field').val();
                                 if(!accountFieldValue){
                                     $.alert({
                                         title: 'Validation Error!',
                                         content: "Please enter an Account id.",
+                                        type: 'red',
+                                        typeAnimated: true,
+                                        buttons: {
+                                            ok: {
+                                                text: 'Ok',
+                                                action: function () {
+                                                }
+                                            }
+                                        }
+                                    });
+                                    return false;
+                                }else if(!regionFieldValue){
+                                    $.alert({
+                                        title: 'Validation Error!',
+                                        content: "Please enter a Region.",
                                         type: 'red',
                                         typeAnimated: true,
                                         buttons: {
@@ -269,7 +291,7 @@ App.Agents = (function (superClass) {
                                         });
                                         return false;
                                     }else{
-                                        clientComm.put("/agents/"+accountFieldValue, "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue, function(){
+                                        clientComm.put("/agents/"+accountFieldValue, "account="+pad_with_zeroes(accountFieldValue, 12)+"&branch="+branchFieldValue+"&region="+regionFieldValue, function(){
                                             //Successs
                                             $.alert({
                                                 title: 'Success!',
@@ -351,6 +373,8 @@ App.Transactions = (function (superClass) {
                     }, {
                         data: "branch"
                     }, {
+                        data: "region"
+                    }, {
                         data: "customer"
                     }, {
                         data: "timestamp"
@@ -363,7 +387,7 @@ App.Transactions = (function (superClass) {
                         render: $.fn.dataTable.render.number(',', '.', 2)
                     }
                 ],
-                order: [[ 3, "desc" ]],
+                order: [[ 4, "desc" ]],
                 "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                     var api = this.api();
                     $.transDataTableApi = api;
@@ -371,15 +395,13 @@ App.Transactions = (function (superClass) {
 
                     var totalValueString = 'Rs ' + response["filteredTotalAmount"].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
                     // Update footer
-                    $(api.column(6).footer()).html(
+                    $(api.column(7).footer()).html(
                         totalValueString
                     );
-
-                    $("#transAmount").text("Lakmal");
                 },
                 columnDefs: [{
-                    targets: 3,
-                    render: $.fn.dataTable.render.moment('X', 'Do MMM YY - HH:MM a')
+                    targets: 4,
+                    render: $.fn.dataTable.render.moment('X', 'Do MMM YY - hh:mm a')
                 }],
                 initComplete: function () {
                     $('.filters input, .filters select', this).on('keyup', (function (_this) {
@@ -390,7 +412,7 @@ App.Transactions = (function (superClass) {
                         };
                     })(this));
                 },
-                dom: '<"agent-add-action">frtip',
+                dom: 'Bfrtip',
                 language: {
                     "lengthMenu": "Display _MENU_ records per page",
                     "zeroRecords": "No transactions available",
@@ -475,8 +497,9 @@ var clientComm = new function () {
     return {
         delete: function (table, id, success, fail) {
             $.ajax({
-                url: '/' + table + '/' + id,
-                type: 'DELETE'
+                url: '/' + table + '/delete',
+                type: 'DELETE',
+                data: "item="+id,
             }).done(success).fail(fail);
         },
         post: function (_url, _data, success, fail){

@@ -1,0 +1,19 @@
+// Place all the styles related to the Uploads controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.upload-content{
+  padding: 1em 2em;
+}
+
+#upload-section{
+  margin-bottom: 3em;
+}
+
+#downloadTable {
+  width: 100%;
+
+  .file-name{
+    line-height: 3em;
+  }
+}
