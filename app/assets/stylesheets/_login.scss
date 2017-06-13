@@ -1,0 +1,124 @@
+.title h1 {
+  margin-bottom: 2em;
+  font-weight: 200 !important;
+}
+
+.home-container {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: #F0F0F3;
+}
+
+.parent-center:before {
+  content: '\200B';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.child-center {
+  display: inline-block;
+  vertical-align: middle;
+  background: white;
+  position: relative;
+
+  width: 95%;
+  right: 2px;
+  @include breakpoint(340px) {
+    width: 320px;
+  }
+
+  box-sizing: content-box;
+  border: 1px solid #ddd;
+
+  -webkit-box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+
+  form{
+    padding: 2em;
+  }
+}
+
+.btn-container a {
+  padding: 1em;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+.field {
+  text-align: left;
+}
+
+.field input[type="text"], .field input[type="password"], .actions input[type="submit"]{
+  width: 400px;
+  padding: 0.8em;
+}
+
+.center{
+  text-align: center;
+}
+
+.logo{
+  background-image: url(/assets/company-logo.png);
+  background-repeat: no-repeat;
+  height: 80px;
+  margin: 0 auto;
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  top: -8em;
+  display: list-item;
+  width: 100%;
+}
+
+@media screen and (max-height: 400px) {
+  .logo{
+    display: none;
+  }
+}
+
+.notice, .alert{
+  position: absolute;
+  top: 14em;
+  margin: 0 auto !important;
+  width: 100%;
+  color: #6b6b6b;
+  /* padding: 0.5em; */
+  padding: 6px 0;
+
+}
+
+.login-field {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.login-field input {
+  text-indent: 32px;
+  height: 39px;
+  font-size: 16px;
+}
+.login-field .fa {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+
+.login-btn-container{
+  box-sizing: border-box;
+  .login-btn{
+    @include button;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1em;
+    margin: 0;
+  }
+}
+
+.fa{
+  vertical-align: middle;
+}

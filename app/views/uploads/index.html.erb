@@ -1,76 +1,427 @@
-<div class="nav-container">
-  <ul class="nav nav-tabs">
-    <li class="presentation">
-      <%= link_to "Agents", agents_path, class: 'nav-link' %>
-    </li>
-    <li class="presentation">
-      <%= link_to "Transactions", transactions_path, class: 'nav-link' %>
-    </li>
-    <li class="presentation active">
-      <a class="nav-link" href="#">Mobile App <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="sign-out pull-right">
-      <%= link_to '<span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out'.html_safe, destroy_user_session_path, :method => :delete, class: 'nav-link' %>
-    </li>
-  </ul>
+<div class="off-canvas-wrapper side-menu">
+  <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+
+
+
+
+    <div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+      <ul class="vertical menu" data-drilldown><!-- start of the drilldown multi level menu -->
+        <li>
+          <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 80.13 80.13" style="enable-background:new 0 0 80.13 80.13;" xml:space="preserve">
+<g>
+	<path d="M48.355,17.922c3.705,2.323,6.303,6.254,6.776,10.817c1.511,0.706,3.188,1.112,4.966,1.112   c6.491,0,11.752-5.261,11.752-11.751c0-6.491-5.261-11.752-11.752-11.752C53.668,6.35,48.453,11.517,48.355,17.922z M40.656,41.984   c6.491,0,11.752-5.262,11.752-11.752s-5.262-11.751-11.752-11.751c-6.49,0-11.754,5.262-11.754,11.752S34.166,41.984,40.656,41.984   z M45.641,42.785h-9.972c-8.297,0-15.047,6.751-15.047,15.048v12.195l0.031,0.191l0.84,0.263   c7.918,2.474,14.797,3.299,20.459,3.299c11.059,0,17.469-3.153,17.864-3.354l0.785-0.397h0.084V57.833   C60.688,49.536,53.938,42.785,45.641,42.785z M65.084,30.653h-9.895c-0.107,3.959-1.797,7.524-4.47,10.088   c7.375,2.193,12.771,9.032,12.771,17.11v3.758c9.77-0.358,15.4-3.127,15.771-3.313l0.785-0.398h0.084V45.699   C80.13,37.403,73.38,30.653,65.084,30.653z M20.035,29.853c2.299,0,4.438-0.671,6.25-1.814c0.576-3.757,2.59-7.04,5.467-9.276   c0.012-0.22,0.033-0.438,0.033-0.66c0-6.491-5.262-11.752-11.75-11.752c-6.492,0-11.752,5.261-11.752,11.752   C8.283,24.591,13.543,29.853,20.035,29.853z M30.589,40.741c-2.66-2.551-4.344-6.097-4.467-10.032   c-0.367-0.027-0.73-0.056-1.104-0.056h-9.971C6.75,30.653,0,37.403,0,45.699v12.197l0.031,0.188l0.84,0.265   c6.352,1.983,12.021,2.897,16.945,3.185v-3.683C17.818,49.773,23.212,42.936,30.589,40.741z" fill="#FFFFFF"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg><div>Agents</div>'.html_safe, agents_path %>
+        </li>
+        <li>
+          <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512px" height="512px">
+            <g>
+              <g>
+                <circle cx="435.2" cy="345.6" r="25.6" fill="#FFFFFF"/>
+              </g>
+            </g>
+            <g>
+              <g>
+                <circle cx="358.4" cy="345.6" r="25.6" fill="#FFFFFF"/>
+              </g>
+            </g>
+            <g>
+              <g>
+                <path d="M460.8,89.6H51.2C22.921,89.6,0,112.52,0,140.8v230.4c0,28.279,22.921,51.2,51.2,51.2h409.6    c28.279,0,51.2-22.921,51.2-51.2V140.8C512,112.52,489.079,89.6,460.8,89.6z M486.4,371.2c0,14.114-11.486,25.6-25.6,25.6H51.2    c-14.114,0-25.6-11.486-25.6-25.6v-128h460.8V371.2z M486.4,217.6H25.6V192h460.8V217.6z M486.4,166.4H25.6v-25.6    c0-14.114,11.486-25.6,25.6-25.6h409.6c14.114,0,25.6,11.486,25.6,25.6V166.4z" fill="#FFFFFF"/>
+              </g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+          </svg><div>Transactions</div>'.html_safe, transactions_path %>
+        </li>
+        <li class="active">
+          <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 27.442 27.442" style="enable-background:new 0 0 27.442 27.442;" xml:space="preserve" width="512px" height="512px">
+            <g>
+              <path d="M19.494,0H7.948C6.843,0,5.951,0.896,5.951,1.999v23.446c0,1.102,0.892,1.997,1.997,1.997h11.546   c1.103,0,1.997-0.895,1.997-1.997V1.999C21.491,0.896,20.597,0,19.494,0z M10.872,1.214h5.7c0.144,0,0.261,0.215,0.261,0.481   s-0.117,0.482-0.261,0.482h-5.7c-0.145,0-0.26-0.216-0.26-0.482C10.612,1.429,10.727,1.214,10.872,1.214z M13.722,25.469   c-0.703,0-1.275-0.572-1.275-1.276s0.572-1.274,1.275-1.274c0.701,0,1.273,0.57,1.273,1.274S14.423,25.469,13.722,25.469z    M19.995,21.1H7.448V3.373h12.547V21.1z" fill="#FFFFFF"/>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+          </svg><div>Mobile App</div>'.html_safe, uploads_path %>
+        </li>
+        <li>
+          <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve" width="512px" height="512px">
+            <g>
+              <g>
+                <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1    C27.9,58.95,0,86.75,0,121.05z" fill="#FFFFFF"/>
+                <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63    C380.6,325.15,380.6,332.95,385.4,337.65z" fill="#FFFFFF"/>
+              </g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+            <g>
+            </g>
+          </svg><div>Logout</div>'.html_safe, destroy_user_session_path, :method => :delete, class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+
+
+
+    <div class="off-canvas-content" data-off-canvas-content>
+
+      <div class="top-bar-container">
+        <div class="top-bar" id="main-menu">
+          <div class="top-bar-left">
+            <ul class="menu">
+              <li>
+                <button class="menu-icon" type="button" data-open="offCanvasLeft"></button>
+              </li>
+              <li class="top-menu-item">
+                <strong>Mobile App</strong>
+              </li>
+            </ul>
+          </div>
+          <div class="top-bar-right menu-logo-container">
+            <img class="menu-logo" src="/assets/SDB-logo-English.jpg"/>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+      <ul class="accordion" data-accordion>
+        <% if current_user.admin? %>
+        <li class="accordion-item" data-accordion-item id="toggle-1">
+          <a class="accordion-title" href="#">
+
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve" width="512px" height="512px">
+              <g>
+                <g>
+                  <path d="M405.967,195.112c-1.069-78.061-64.902-141.239-143.213-141.239c-34.835,0-68.396,12.672-94.498,35.682    c-23.296,20.535-39.232,47.977-45.543,78.106c-0.461-0.005-0.918-0.009-1.374-0.009C54.434,167.652,0,222.085,0,288.991    S54.434,410.33,121.34,410.33h84.743c6.029,0,10.919-4.888,10.919-10.919c0-6.031-4.89-10.919-10.919-10.919H121.34    c-54.866,0-99.502-44.636-99.502-99.501c0-54.865,44.636-99.501,99.502-99.501c2.923,0,6.013,0.157,9.448,0.48    c5.822,0.545,11.049-3.596,11.842-9.396c3.932-28.82,18.161-55.327,40.067-74.638c22.111-19.492,50.542-30.226,80.056-30.226    c66.935,0,121.389,54.455,121.389,121.389c0,2.41-0.179,4.894-0.368,7.524l-0.081,1.118c-0.227,3.212,0.975,6.361,3.287,8.604    c2.309,2.243,5.488,3.351,8.697,3.03c2.904-0.293,5.834-0.44,8.708-0.44c47.297,0,85.778,38.48,85.778,85.778    c0,47.297-38.48,85.777-85.778,85.777h-89.111c-6.029,0-10.919,4.888-10.919,10.919c0,6.031,4.89,10.919,10.919,10.919h89.111    c59.339,0,107.616-48.275,107.616-107.615C512,243.906,464.58,195.961,405.967,195.112z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M262.755,105.192c-45.658,0-84.742,34.121-90.914,79.367c-0.815,5.975,3.369,11.48,9.343,12.295    c0.501,0.068,0.998,0.102,1.489,0.102c5.375,0,10.059-3.97,10.804-9.444c4.703-34.48,34.486-60.482,69.277-60.482    c6.031,0,10.919-4.888,10.919-10.919C273.674,110.081,268.785,105.192,262.755,105.192z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M312.41,320.052l-39.718-35.48c-6.847-6.12-17.177-6.119-24.027-0.001l-39.718,35.482    c-4.498,4.017-4.886,10.92-0.869,15.418c4.017,4.496,10.919,4.887,15.418,0.869l26.264-23.462v134.331    c0,6.031,4.888,10.919,10.919,10.919c6.03,0,10.919-4.888,10.919-10.919V312.876l26.265,23.463    c2.082,1.861,4.681,2.776,7.27,2.776c3.002,0,5.99-1.229,8.148-3.645C317.296,330.972,316.907,324.07,312.41,320.052z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </svg>
+
+            <strong>Upload Apk</strong></a>
+          <div class="accordion-content" data-tab-content>
+
+
+            <div id="upload-section">
+                  <%= form_tag '/uploads', {:multipart => true} do %>
+
+                      <div class="file-drop-area">
+                        <span class="fake-btn">Choose file</span>
+                        <span class="file-msg js-set-number">or drag and drop file here</span>
+                        <%= file_field_tag 'upload[file]', :class => "file-input" %>
+                      </div>
+                      <p>
+                        <%= submit_tag "Upload", :class => "upload-submit-btn" %>
+                      </p>
+                  <% end %>
+            </div>
+
+          </div>
+        </li>
+        <% end %>
+        <li class="accordion-item  is-active" data-accordion-item id="toggle-2">
+          <a class="accordion-title" href="#">
+
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve" width="512px" height="512px">
+              <g>
+                <g>
+                  <path d="M405.967,187.467c-1.069-78.061-64.902-141.239-143.213-141.239c-34.835,0-68.396,12.672-94.498,35.682    c-23.296,20.535-39.232,47.977-45.543,78.106c-0.461-0.005-0.918-0.009-1.374-0.009C54.434,160.008,0,214.441,0,281.347    s54.434,121.339,121.34,121.339h44.534c6.029,0,10.919-4.888,10.919-10.919c0-6.031-4.89-10.919-10.919-10.919H121.34    c-54.866,0-99.502-44.636-99.502-99.501s44.636-99.501,99.502-99.501c2.923,0,6.013,0.157,9.448,0.48    c5.822,0.54,11.049-3.596,11.842-9.396c3.932-28.82,18.161-55.327,40.067-74.638c22.111-19.492,50.542-30.226,80.056-30.226    c66.935,0,121.389,54.455,121.389,121.389c0,2.41-0.449,8.642-0.449,8.642c-0.227,3.212,0.975,6.361,3.287,8.604    c2.309,2.243,5.488,3.349,8.697,3.03c2.904-0.293,5.834-0.44,8.708-0.44c47.297,0,85.778,38.48,85.778,85.778    c0,47.297-38.48,85.777-85.778,85.777h-48.902c-6.029,0-10.919,4.888-10.919,10.919s4.89,10.919,10.919,10.919h48.902    c59.339,0,107.616-48.275,107.616-107.615C512,236.261,464.58,188.317,405.967,187.467z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M262.755,97.548c-45.658,0-84.742,34.121-90.914,79.367c-0.815,5.975,3.371,11.462,9.343,12.295    c6.368,0.888,11.548-3.869,12.295-9.343c4.702-34.479,34.484-60.48,69.276-60.48c6.031,0,10.919-4.888,10.919-10.919    C273.674,102.436,268.785,97.548,262.755,97.548z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M313.279,410.283c-4.017-4.496-10.92-4.887-15.418-0.868l-26.265,23.463V298.547c0-6.031-4.89-10.919-10.919-10.919    c-6.031,0-10.919,4.888-10.919,10.919v134.33l-26.264-23.463c-4.496-4.018-11.401-3.627-15.417,0.868    c-4.018,4.498-3.63,11.399,0.868,15.418l39.717,35.483c3.425,3.061,7.719,4.59,12.014,4.59c4.294,0,8.589-1.53,12.013-4.589    l39.719-35.483C316.907,421.684,317.296,414.781,313.279,410.283z" fill="#FFFFFF"/>
+                </g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+              <g>
+              </g>
+            </svg>
+
+
+            <strong>Download Apk</strong></a>
+          <div class="accordion-content active" data-tab-content>
+
+
+
+            <div id="downloadTable">
+              <div id="downloadTableBody">
+              <% @files.each do |file| %>
+                  <% if file != "." && file != ".." %>
+                      <div class="download-record" data-url='<%= file %>'>
+                        <div class="download-cell float-left">
+                          <span class="file-name"><%= file %></span>
+                        </div>
+                        <div class="download-cell float-right">
+                          <ul class="nav nav-tabs zero-border" data-no-turbolink>
+                            <li class="download-file-btn"><%= link_to "Download", "uploads/apk/#{file}", download: "#{file}" %></li>
+                            <% if current_user.admin? %>
+                                <li class="delete-file-btn"><a>Delete</a></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      </div>
+                  <% end %>
+              <% end %>
+
+              <% if @files.count <= 2 %>
+                    <div class="download-record">
+                  <div>No donwloads available at this moment.</div>
+                    </div>
+              <% end %>
+              </div>
+            </div>
+
+
+
+
+
+
+          </div>
+        </li>
+      </ul>
+
+
+
+
+
+
+
+    </div>
+  </div>
 </div>
 
-<section class="upload-content">
 
 
-  <div id="upload-section">
-    <% if current_user.admin? %>
-        <h4>Upload Apk:</h4>
-        <%= form_tag '/uploads', {:multipart => true} do %>
-            <p>
-              <%= file_field_tag 'upload[file]' %>
-            </p>
-            <p>
-              <%= submit_tag "Upload" %>
-            </p>
-        <% end %>
-    <% end %>
-  </div>
-
-  <table id="downloadTable">
-    <thead>
-    <h4>Available Apk:</h4>
-    </thead>
-    <tbody id="downloadTableBody">
-    <% @files.each do |file| %>
-        <% if file != "." && file != ".." %>
-            <tr data-url='<%= file %>'>
-              <td>
-                <span class="file-name"><%= file %></span>
-              </td>
-              <td>
-                :
-              </td>
-              <td>
-                <ul class="nav nav-tabs zero-border" data-no-turbolink>
-                  <li class="download-file-btn"><%= link_to "Download", "uploads/apk/#{file}" %></li>
-                  <% if current_user.admin? %>
-                  <li class="delete-file-btn"><a>Delete</a></li>
-                  <% end %>
-                </ul>
-              </td>
-            </tr>
-        <% end %>
-    <% end %>
-
-    <% if @files.count <= 2 %>
-        <tr>No donwloads available at this moment.</tr>
-    <% end %>
-    </tbody>
-  </table>
 
 
-</section>
+
+
 
 
 <script>
-  $('#downloadTable tbody').on('click', '.delete-file-btn', function () {
-    var row = $(this).parents('tr');
+  $('#downloadTable').on('click', '.delete-file-btn', function () {
+    var row = $(this).parents('.download-record');
     var fileName = row.attr("data-url");
 
     $.confirm({
@@ -84,7 +435,7 @@
           action: function () {
             clientComm.delete("uploads", fileName, function (res) {
               // Reloading from server
-              if ($("#downloadTableBody tr").length <= 1) {
+              if ($("#downloadTableBody .download-record").length <= 1) {
                 row.html("No downloads available at this moment.");
               } else {
                 row.remove();
@@ -122,4 +473,36 @@
         }
       }
   );
+
+
+
+  var $fileInput = $('.file-input');
+  var $droparea = $('.file-drop-area');
+
+  // highlight drag area
+  /*$fileInput.on('dragenter focus click', function() {
+    $droparea.addClass('is-active');
+  });*/
+
+  // back to normal state
+  $fileInput.on('dragleave blur drop', function() {
+    $droparea.removeClass('is-active');
+  });
+
+  // change inner text
+  $fileInput.on('change', function() {
+    var filesCount = $(this)[0].files.length;
+    var $textContainer = $(this).prev('.js-set-number');
+
+    if (filesCount === 1) {
+      // if single file then show file name
+      $textContainer.text($(this).val().split('\\').pop());
+    } else {
+      // otherwise show number of files
+      $textContainer.text(filesCount + ' files selected');
+      if(filesCount == 0){
+        $('.upload-submit-btn').prop('disabled', true);
+      }
+    }
+  });
 </script>

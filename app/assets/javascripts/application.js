@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require js-routes
+//= require foundation
 //= require_tree .
 
 
@@ -119,6 +120,7 @@ App.Agents = (function (superClass) {
 
     Agents.prototype.index = function () {
         return $(function () {
+            //$('[data-search="account"]').val() == "" ? "-" : $('[data-search="account"]').val()
             var table = $.agentsTable = $('#agentTable').DataTable({
                 ajax: Routes.agents_path(),
                 columns: [
@@ -143,8 +145,32 @@ App.Agents = (function (superClass) {
                     "lengthMenu": "Display _MENU_ records per page",
                     "zeroRecords": "No agents available",
                     /*"info": "Showing page _PAGE_ of _PAGES_",*/
-                    "info": "<table><th><strong>Agents Summary</strong></th><tr><td>Agent count after filter</td><td class='summary-colon'>:</td><td> _TOTAL_</td></tr><tr><td>Total agent count</td><td class='summary-colon'>:</td><td> _MAX_</td></tr>",
-                    "infoEmpty": "No agents available",
+                    "info":
+                    "<div class='row columns expanded search-results-table'>" +
+                    "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
+                    "<div class='small-6 columns'>Account</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
+                    "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
+                    "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>agents</span></div>" +
+                    "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>agents</span></div>" +
+                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>",
+                    "infoEmpty":
+                    "<div class='row columns expanded search-results-table'>" +
+                    "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
+                    "<div class='small-6 columns'>Account</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
+                    "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
+                    "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>agents</span></div>" +
+                    "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>agents</span></div>" +
+                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/></div></div>" +
+                    "</div>",
                     "infoFiltered": ""
                 },
                 columnDefs: [{
@@ -154,11 +180,39 @@ App.Agents = (function (superClass) {
                     "defaultContent": function () {
                         return $("body").attr("user-is-admin") == "true" ? '<ul class="nav nav-tabs zero-border"><li class="delete-btn"><a>Delete</a></li><li class="update-btn"><a>Update</a></li></ul>' : 'None Available'
                     }()
-                }]
+                }],
+                drawCallback: function() {
+                    $(".search-results-table .account").html($('[data-search="account"]').val() == "" ? "-" : $('[data-search="account"]').val());
+                    $(".search-results-table .branch").html($('[data-search="branch"]').val() == "" ? "-" : $('[data-search="branch"]').val());
+                    $(".search-results-table .region").html($('[data-search="region"]').val() == "" ? "-" : $('[data-search="region"]').val());
+
+
+                    if($('[data-search="account"]').val() != "" || $('[data-search="branch"]').val() != "" ||  $('[data-search="region"]').val() != ""){
+                        $("#clearFilter").attr("disabled", false);
+                    }else{
+                        $("#clearFilter").attr("disabled", true);
+                    }
+
+
+                    $("#clearFilter").on("click", function(){
+                        $(".search-results-table .account").html("-");
+                        $(".search-results-table .branch").html("-");
+                        $(".search-results-table .region").html("-");
+
+                        $('[data-search="account"]').val("");
+                        $('[data-search="branch"]').val("");
+                        $('[data-search="region"]').val("");
+
+                        table.columns([0, 1, 2]).search("").draw();
+
+                    });
+
+
+                }
             });
 
 
-            $("div.agent-add-action").html('<ul class="nav nav-tabs zero-border"><li class="sign-out"><a class="nav-link" id="create_agent_btn"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</a></li></ul>');
+            //$("div.agent-add-action").html('<button id="create_agent_btn" class="button"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</button>');
 
             $('#agentTable tbody').on('click', '.delete-btn', function () {
                 var data = table.row($(this).parents('tr')).data();
@@ -365,7 +419,7 @@ App.Transactions = (function (superClass) {
 
     Transactions.prototype.index = function () {
         return $(function () {
-            $('#transactionTable').DataTable({
+            var table = $('#transactionTable').DataTable({
                 ajax: Routes.transactions_path(),
                 columns: [
                     {
@@ -417,9 +471,87 @@ App.Transactions = (function (superClass) {
                     "lengthMenu": "Display _MENU_ records per page",
                     "zeroRecords": "No transactions available",
                     /*"info": "Showing page _PAGE_ of _PAGES_",*/
-                    "info": "<table><th><strong>Transactions Summary</strong></th><tr><td>Transaction count after filter</td><td class='summary-colon'>:</td><td> _TOTAL_</td></tr><tr><td>Total transaction count</td><td class='summary-colon'>:</td><td> _MAX_</td></tr>",
-                    "infoEmpty": "No transactions available",
+                    "info":
+                    "<div class='row columns expanded search-results-table'>" +
+                    "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
+                    "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
+                    "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "<div class='small-6 columns'>Customer</div><div class='small-6 columns customer'>-</div>" +
+                    "<div class='small-6 columns'>Date/Time</div><div class='small-6 columns dateTime'>-</div>" +
+                    "<div class='small-6 columns'>Status</div><div class='small-6 columns status'>-</div>" +
+                    "<div class='small-6 columns'>Mobile No.</div><div class='small-6 columns mobile'>-</div>" +
+                    "<div class='small-6 columns'>Amount</div><div class='small-6 columns amount'>-</div>" +
+                    "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
+                    "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>transactions</span></div>" +
+                    "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>transactions</span></div>" +
+                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>",
+                    "infoEmpty":
+                    "<div class='row columns expanded search-results-table'>" +
+                    "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
+                    "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
+                    "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "<div class='small-6 columns'>Customer</div><div class='small-6 columns customer'>-</div>" +
+                    "<div class='small-6 columns'>Date/Time</div><div class='small-6 columns dateTime'>-</div>" +
+                    "<div class='small-6 columns'>Status</div><div class='small-6 columns status'>-</div>" +
+                    "<div class='small-6 columns'>Mobile No.</div><div class='small-6 columns mobile'>-</div>" +
+                    "<div class='small-6 columns'>Amount</div><div class='small-6 columns amount'>-</div>" +
+                    "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
+                    "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>transactions</span></div>" +
+                    "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>transactions</span></div>" +
+                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "</div>",
                     "infoFiltered": ""
+                },
+                drawCallback: function() {
+                    $(".search-results-table .account").html($('[data-search="account"]').val() == "" ? "-" : $('[data-search="account"]').val());
+                    $(".search-results-table .branch").html($('[data-search="branch"]').val() == "" ? "-" : $('[data-search="branch"]').val());
+                    $(".search-results-table .region").html($('[data-search="region"]').val() == "" ? "-" : $('[data-search="region"]').val());
+                    $(".search-results-table .customer").html($('[data-search="customer"]').val() == "" ? "-" : $('[data-search="customer"]').val());
+                    $(".search-results-table .dateTime").html($('[data-search="dateTime"]').val() == "" ? "-" : $('[data-search="dateTime"]').val());
+                    $(".search-results-table .status").html($('[data-search="status"]').val() == "" ? "-" : $('[data-search="status"]').val());
+                    $(".search-results-table .mobile").html($('[data-search="mobile"]').val() == "" ? "-" : $('[data-search="mobile"]').val());
+                    $(".search-results-table .amount").html($('[data-search="amount"]').val() == "" ? "-" : $('[data-search="amount"]').val());
+
+
+                    if($('[data-search="account"]').val() != "" || $('[data-search="branch"]').val() != "" ||  $('[data-search="region"]').val() != ""
+                    || $('[data-search="customer"]').val() != "" || $('[data-search="dateTime"]').val() != "" ||  $('[data-search="status"]').val() != ""
+                        || $('[data-search="mobile"]').val() != "" || $('[data-search="amount"]').val() != ""
+                    ){
+                        $("#clearFilter").attr("disabled", false);
+                    }else{
+                        $("#clearFilter").attr("disabled", true);
+                    }
+
+
+                    $("#clearFilter").on("click", function(){
+                        $(".search-results-table .account").html("-");
+                        $(".search-results-table .branch").html("-");
+                        $(".search-results-table .region").html("-");
+                        $(".search-results-table .customer").html("-");
+                        $(".search-results-table .dateTime").html("-");
+                        $(".search-results-table .status").html("-");
+                        $(".search-results-table .mobile").html("-");
+                        $(".search-results-table .amount").html("-");
+
+                        $('[data-search="account"]').val("");
+                        $('[data-search="branch"]').val("");
+                        $('[data-search="region"]').val("");
+                        $('[data-search="customer"]').val("");
+                        $('[data-search="dateTime"]').val("");
+                        $('[data-search="status"]').val("");
+                        $('[data-search="mobile"]').val("");
+                        $('[data-search="amount"]').val("");
+
+                        table.columns([0, 1, 2, 3, 4, 5, 6, 7]).search("").draw();
+                    });
                 }
             });
 
@@ -527,3 +659,5 @@ function pad_with_zeroes(string, length) {
     return string;
 }
 
+
+$(function(){ $(document).foundation(); });

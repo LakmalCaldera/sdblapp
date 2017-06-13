@@ -10,9 +10,14 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require foundation_and_overrides
+ *= require font-awesome
  *= require_self
  */
+
+@import 'settings';
+@import 'foundation';
+@include foundation-button;
 
 
 
@@ -100,6 +105,7 @@
 }
 
 .delete-btn > a{
+    text-indent: 0;
     height: 21px !important;
     padding: 2px !important;
     background: #F44336 !important;
@@ -112,6 +118,7 @@
 }
 
 .update-btn{
+    text-indent: 0;
     margin-right: 2px;
     line-height: 21px;
     height: 21px;
@@ -132,7 +139,7 @@
 }
 
 .filters .form-group{
-    margin: 0 !important;
+    margin: 11px 0 !important;
 }
 
 .table.table-striped.table-bordered.dataTable.fixedHeader-floating{
@@ -199,6 +206,10 @@
     z-index: 9999 !important;
 }
 
+.agent-add-action{
+    display: none;
+}
+
 .agent-add-action button{
     margin: 0.5em 0;
 }
@@ -220,7 +231,16 @@
 }
 
 .dataTables_info{
-    font-size: 17px !important;
+    font-size: 1em !important;
+    margin-top: 3em;
+    width: 100%;
+    position: relative;
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 }
 
 .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
@@ -262,8 +282,10 @@ table.dataTable.no-footer{
 
 .form-control{
     border-color: #368ecc !important;
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
+    /* border-top-right-radius: 4px !important; */
+    /* border-bottom-right-radius: 4px !important; */
+    height: 100%;
+    padding: 9px 12px !important;
 }
 
 .table.dataTable{
@@ -274,14 +296,93 @@ tfoot{
     border-top: 1px solid #368ecc !important;
 }
 
-.summary-colon{
-    padding: 0 1em !important;
-}
-
 #transactionTable, #agentTable{
     border-bottom: 1px solid #368ecc !important;
 }
 
 .dataTables_wrapper .dataTables_paginate{
     padding-top: 0.755em !important;
+    position: absolute;
+    /* margin: 0 auto; */
+    float: right;
+    right: 0.5em;
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+.summary-btn-container{
+    box-sizing: border-box;
+    .summary-btn{
+        @include button;
+        width: 200px;
+        font-weight: bold;
+        font-size: 1em;
+        margin: 0;
+
+        &[disabled]{
+            background: darken($primary-color, 20%);
+            cursor: not-allowed;
+        }
+    }
+}
+
+.dataTables_wrapper thead tr:nth-child(2){
+    border: 1px solid $primary-color;
+
+    th{
+        background-color: $primary-color !important;
+        color: $white !important;
+        vertical-align: middle;
+    }
+}
+
+.dataTables_wrapper{
+    td{
+        text-indent: 6px;
+    }
+
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.dataTables_info{
+    padding: 0;
+    margin: 3.5em 0 0 0;
+    .search-results-table{
+        padding: 0 !important;
+        margin: 0 !important;
+        .info-heading:first-child{
+            padding: 0 1em;
+            height: 40px;
+            line-height: 40px;
+            margin-bottom:1em;
+            color: $white;
+            background: $primary-color;
+        }
+
+        .info-heading:last-child{
+            padding: 1em;
+            margin-bottom:1em;
+        }
+
+        .columns{
+            padding: 0 1em;
+        }
+    }
+
+    .row{
+        padding: 1em;
+        background: white;
+        margin-bottom: 4em;
+    }
+}
+
+.report-btn-seperator{
+    margin: 1em 0;
 }
