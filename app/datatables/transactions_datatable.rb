@@ -1,5 +1,10 @@
 class TransactionsDatatable < AjaxDatatablesRails::Base
 
+  def initialize(view, branch_filter)
+    super(view)
+    @branch_filter = branch_filter
+  end
+
   def view_columns
     # Declare strings in this format: ModelName.column_name
     # or in aliased_join_table.column_name format
@@ -43,7 +48,12 @@ class TransactionsDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    Agent.select("agents.*, transactions.*").joins(:transactions)
+    if (@branch_filter.nil?)
+      Agent.select("agents.*, transactions.*").joins(:transactions)
+    else
+      Agent.select("agents.*, transactions.*").joins(:transactions).where("agents.branch = ?", @branch_filter)
+    end
+
   end
 
   def filter_custom_column_condition

@@ -19,8 +19,6 @@
 @import 'foundation';
 @include foundation-button;
 
-
-
 .dataTables_filter {
     width: 50%;
     float: right;
@@ -357,6 +355,7 @@ tfoot{
     .search-results-table{
         padding: 0 !important;
         margin: 0 !important;
+        background: transparent !important;
         .info-heading:first-child{
             padding: 0 1em;
             height: 40px;
@@ -378,11 +377,30 @@ tfoot{
 
     .row{
         padding: 1em;
-        background: white;
-        margin-bottom: 4em;
     }
 }
 
 .report-btn-seperator{
     margin: 1em 0;
+}
+
+.summary-card{
+    background: white;
+    margin: 4em 2em 0 2em !important;
+    border: 1px solid #cecece;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.summary-result-card{
+    background: white;
+    margin: 2em 2em 0 2em !important;
+    border: 1px solid #cecece;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.summary-btn-card{
+    background: transparent !important;
+    margin: 1em 2em 1em 2em !important;
+    padding: 1em 0 !important;
+    text-align: right;
 }

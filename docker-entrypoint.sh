@@ -21,7 +21,7 @@ echo Running script to start application and setup db;
 # rails db:setup
 
 # seed the database with data, if seeding first time, creats a default user, admin@gmail.com, pass - admin123[This command will fail running the next time, as not duplicate entries are allowed]
- rake db:seed --trace
+# rake db:seed --trace
 
 # start rails server
   bundle exec rails s -p 3000 -b '0.0.0.0'

@@ -148,28 +148,38 @@ App.Agents = (function (superClass) {
                     "info":
                     "<div class='row columns expanded search-results-table'>" +
                     "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='summary-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
-                    "<div class='small-6 columns'>Account</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
                     "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
                     "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "</div>"+
+                    "<div class='summary-result-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
                     "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>agents</span></div>" +
                     "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>agents</span></div>" +
-                    "<div  class='small-12 columns report-btn-seperator'></div>" +
-                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
+                    "<div class='summary-btn-card row expanded'>"+
+                    "<div><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
                     "</div>",
                     "infoEmpty":
                     "<div class='row columns expanded search-results-table'>" +
                     "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='summary-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
-                    "<div class='small-6 columns'>Account</div><div class='small-6 columns account'>-</div>" +
+                    "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
                     "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
                     "<div class='small-6 columns'>Region</div><div class='small-6 columns region'>-</div>" +
+                    "</div>"+
+                    "<div class='summary-result-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
                     "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>agents</span></div>" +
                     "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>agents</span></div>" +
-                    "<div  class='small-12 columns report-btn-seperator'></div>" +
-                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/></div></div>" +
+                    "</div>"+
+                    "<div class='summary-btn-card row expanded'>"+
+                    "<div><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
                     "</div>",
                     "infoFiltered": ""
                 },
@@ -214,7 +224,9 @@ App.Agents = (function (superClass) {
 
             //$("div.agent-add-action").html('<button id="create_agent_btn" class="button"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Agent</button>');
 
-            $('#agentTable tbody').on('click', '.delete-btn', function () {
+            $('#agentTable tbody').on('click', '.delete-btn', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
                 var data = table.row($(this).parents('tr')).data();
 
                 $.confirm({
@@ -269,7 +281,9 @@ App.Agents = (function (superClass) {
 
 
 
-            $('#agentTable tbody').on('click', '.update-btn', function () {
+            $('#agentTable tbody').on('click', '.update-btn', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
                 var data = table.row($(this).parents('tr')).data();
 
                 $.confirm({
@@ -402,6 +416,14 @@ App.Agents = (function (superClass) {
 
 
 
+            $('#agentTable tbody').on('click', 'tr', function () {
+                var branchName = table.row($(this)).data().branch;
+                window.location.href = Routes.transactions_path() + "?branch=" + branchName;
+            });
+
+
+
+
         });
     };
 
@@ -417,10 +439,25 @@ App.Transactions = (function (superClass) {
         return Transactions.__super__.constructor.apply(this, arguments);
     }
 
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
     Transactions.prototype.index = function () {
         return $(function () {
             var table = $('#transactionTable').DataTable({
-                ajax: Routes.transactions_path(),
+                ajax: getUrlParameter("branch") ? Routes.transactions_path()+"?branch="+getUrlParameter("branch") : Routes.transactions_path(),
                 columns: [
                     {
                         data: "agent"
@@ -474,6 +511,7 @@ App.Transactions = (function (superClass) {
                     "info":
                     "<div class='row columns expanded search-results-table'>" +
                     "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='summary-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
                     "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
                     "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
@@ -483,15 +521,20 @@ App.Transactions = (function (superClass) {
                     "<div class='small-6 columns'>Status</div><div class='small-6 columns status'>-</div>" +
                     "<div class='small-6 columns'>Mobile No.</div><div class='small-6 columns mobile'>-</div>" +
                     "<div class='small-6 columns'>Amount</div><div class='small-6 columns amount'>-</div>" +
+                    "</div>"+
+                    "<div class='summary-result-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
                     "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>transactions</span></div>" +
                     "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>transactions</span></div>" +
-                    "<div  class='small-12 columns report-btn-seperator'></div>" +
-                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
+                    "<div class='summary-btn-card row expanded'>"+
+                    "<div><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
                     "</div>",
                     "infoEmpty":
                     "<div class='row columns expanded search-results-table'>" +
                     "<div class='small-12 columns info-heading'><strong>Search Summary:</strong></div>" +
+                    "<div class='summary-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Applied Filters:</strong></div>" +
                     "<div class='small-6 columns'>Agent</div><div class='small-6 columns account'>-</div>" +
                     "<div class='small-6 columns'>Branch</div><div class='small-6 columns branch'>-</div>" +
@@ -501,12 +544,15 @@ App.Transactions = (function (superClass) {
                     "<div class='small-6 columns'>Status</div><div class='small-6 columns status'>-</div>" +
                     "<div class='small-6 columns'>Mobile No.</div><div class='small-6 columns mobile'>-</div>" +
                     "<div class='small-6 columns'>Amount</div><div class='small-6 columns amount'>-</div>" +
+                    "</div>"+
+                    "<div class='summary-result-card row expanded'>"+
                     "<div class='small-12 columns info-heading'><strong>Results:</strong></div>" +
                     "<div class='small-6 columns'>Searched Count</div><div class='small-6 columns'> _TOTAL_ <span>transactions</span></div>" +
                     "<div  class='small-6 columns'>Total Count</div><div class='small-6 columns'> _MAX_ <span>transactions</span></div>" +
-                    "<div  class='small-12 columns report-btn-seperator'></div>" +
-                    "<div class='small-12 columns info-heading'><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
-                    "<div  class='small-12 columns report-btn-seperator'></div>" +
+                    "</div>"+
+                    "<div class='summary-btn-card row expanded'>"+
+                    "<div><div class='summary-btn-container'><input type='submit' id='clearFilter' class='button summary-btn' value='Clear All Filters'/>&nbsp;<input type='submit' disabled class='button summary-btn' value='Generate Report'/></div></div>" +
+                    "</div>"+
                     "</div>",
                     "infoFiltered": ""
                 },
@@ -550,7 +596,7 @@ App.Transactions = (function (superClass) {
                         $('[data-search="mobile"]').val("");
                         $('[data-search="amount"]').val("");
 
-                        table.columns([0, 1, 2, 3, 4, 5, 6, 7]).search("").draw();
+                        table.ajax.url(Routes.transactions_path()).load();
                     });
                 }
             });

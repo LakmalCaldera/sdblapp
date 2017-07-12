@@ -1,8 +1,19 @@
-FROM ruby:2.2.6
+FROM ruby:2.2.6-alpine
 
 MAINTAINER Lakmal Caldera (lakmal.developer@gmail.com)
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+ENV BUILD_PACKAGES="build-base bash" \
+    DEV_PACKAGES="sqlite-dev mysql-dev git" \
+    RUBY_PACKAGES="nodejs"
+
+# Update and install base packages and nokogiri gem that requires a
+# native compilation
+RUN apk update && \
+    apk upgrade && \
+    apk add --update\
+    $BUILD_PACKAGES \
+    $DEV_PACKAGES \
+    $RUBY_PACKAGES
 
 RUN gem install bundle
 

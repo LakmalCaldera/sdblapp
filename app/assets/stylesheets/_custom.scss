@@ -102,8 +102,17 @@
   }
 }
 
+@font-face {
+  font-family: 'Viga';
+  src: url('/fonts/Viga-Regular.ttf'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/fonts/Viga-Regular.ttf') format('woff2'), /* Super Modern Browsers */
+  url('/fonts/Viga-Regular.ttf') format('woff'), /* Pretty Modern Browsers */
+  url('/fonts/Viga-Regular.ttf')  format('truetype') /* Safari, Android, iOS */
+}
+
 body{
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Viga', sans-serif !important;
   background: #F0F0F3 !important;
   font-size: 16px !important;
 }
@@ -323,4 +332,9 @@ body{
 
 .date-picker-wrapper .month-wrapper{
   width: 430px !important;
+}
+
+#agentTable tbody tr:hover{
+  background: lighten($primary-color, 20%) !important;
+  cursor: pointer;
 }
